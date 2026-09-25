@@ -21,3 +21,39 @@ Jamar Warner Johnson - 40253688
 Arman Zakarian - 40343037 
 
 Georges Mourad - 40258082
+
+## Technologies 
+
+- HTML
+- CSS
+- JavaScript
+- Python
+- Node.js
+- Express.js
+- Supabase
+- Vercel
+- Git and GitHub
+
+## Setup Instructions 
+
+1. Clone the GitHub repository.
+2. Open the project in Visual Studio Code.
+3. Install the required dependencies using "npm install"
+4. Run the backend server using "node server/index.js"
+
+> Comment : These step instructions needs to be updated later as the project advance more and more. 
+
+
+## Proposed Features
+
+- User registration, authentication, and profile management. 
+- Resume upload andmanagement. 
+- Job posting management for recruiters. 
+- Job search and filtering capabilities. 
+- Job application submission. 
+- Application status tracking (Applied, Interview, Offered, Rejected). 
+- Application history dashboard. 
+- Notifications and reminders for application deadlines. 
+- Saved jobs and favourites. 
+- AI-assisted resume feedback 
+- AI-assisted job description summaries
