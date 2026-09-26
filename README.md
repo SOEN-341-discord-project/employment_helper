@@ -22,6 +22,8 @@ Arman Zakarian - 40343037
 
 Georges Mourad - 40258082
 
+Liam Casasola - 40271764
+
 ## Technologies 
 
 - HTML
