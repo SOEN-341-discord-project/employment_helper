@@ -5,6 +5,7 @@ const formidable = require("formidable");
 const PORT = process.env.PORT || 3001;
 const path = require('path');
 const crypto = require('crypto');
+const supabase = require("./supabaseClient");
 const app = express();
 
 app.use(express.json());
