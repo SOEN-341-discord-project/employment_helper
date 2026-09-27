@@ -49,14 +49,16 @@
 
 ## Team Capacity
 
-The team has 5 members:
+The team has 6 members:
 
 - Amer Abou Ahmad
 - Jamar Warner Johnson
 - Arman Zakarian
 - Georges Mourad
+- Liam Casasola
+- Giorgio Azzi
 
-Sprint 1 tasks will be divided between the four team members based on availability and the work required for each task.
+Sprint 1 tasks will be divided between the six team members based on availability and the work required for each task.
 
 ## Risks
 
