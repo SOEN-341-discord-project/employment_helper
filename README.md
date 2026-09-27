@@ -22,7 +22,9 @@ Arman Zakarian - 40343037
 
 Georges Mourad - 40258082
 
-Liam Casasola - 40271764
+Liam Casasola - 40271764 
+
+Giorgio Azzi - 40342084
 
 ## Technologies 
 

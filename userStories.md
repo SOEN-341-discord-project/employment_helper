@@ -1,3 +1,8 @@
+
+# User Stories
+
+## AI-Generated User Stories
+
 US-01 — Account Registration
 As a job seeker, I want to create an account so that I can access personalized job search features.
 
@@ -28,6 +33,8 @@ As a job seeker, I want to save interesting job postings so that I can easily re
 US-10 — Generative AI Resume Feedback
 As a job seeker, I want to receive AI-generated feedback on my resume for a selected job posting so that I can improve how clearly it presents my relevant qualifications.
 if everyone could give one user story would be good so trello is setup please
+
+## Team Generated User Stories and Features
 
 US-11 — Real Job Postings
 As a job seeker, I want to see  postings collected from legitimate sources
