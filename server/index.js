@@ -9,8 +9,14 @@ const path = require('path');
 const crypto = require('crypto');
 const supabase = require("./supabaseClient");
 const app = express();
-
 const resumeRoutes = require("./routes/resumes");
+
+
+
+app.get("/", (req, res) => {
+    res.redirect("/register.html");
+});
+
 
 app.use(express.json());
 
@@ -41,6 +47,9 @@ const upload = multer({storage: multer.memoryStorage() });
 app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
 });
+
+
+
 
 app.post("/api/register", async (req, res) => {
   const { fullName, email, password } = req.body ?? {};
