@@ -7,6 +7,12 @@ const path = require('path');
 const crypto = require('crypto');
 const app = express();
 
+const resumeRoutes = require("./routes/resumes");
+app.use("/api/resumes", resumeRoutes);
+
+
+
+
 const diskstorage = multer.diskStorage({
 
   destination: (req,file, cb) => {
