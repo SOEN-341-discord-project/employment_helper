@@ -14,6 +14,6 @@ form.addEventListener("submit", async function(event) {
   });
   if (response.ok) { window.location.href = "/resume";
   } else {
-    message.textContent = "Password or email is invalid";
+    message.textContent = "Password or Email is invalid";
   }
 });

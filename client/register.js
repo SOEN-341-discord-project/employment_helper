@@ -20,8 +20,8 @@ form.addEventListener("submit", async function (event) {
     return message.textContent ="Password range is 5 to 15 characters.";
   }
 
-  if (!/[*!@#$%^&()]/.test(passw)) {
-    return message.textContent = "Password must contain at least one of these: * ! @ $ % & # ( ) ^";
+  if (!/[!@#$%^&()]/.test(passw)) {
+    return message.textContent = "Password must contain at least one of these: * ! @ # $ % ^ & ( ) ";
   }
 
   try {
@@ -31,7 +31,7 @@ form.addEventListener("submit", async function (event) {
     });
 
     if (response.status===409) {
-      message.textContent = "The email you entered is already being used.";
+      message.textContent = "The Email you entered is already being used.";
     } else if (response.ok) {
       message.textContent = "Account successfully created!"; 
     } else {
