@@ -9,7 +9,7 @@ const supabase = require("./supabaseClient");
 const app = express();
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "..", "client")));
+app.use(express.static(path.join(__dirname, "..", "client"), { extensions: ["html"] } ));
 
 const diskstorage = multer.diskStorage({
 
@@ -34,10 +34,10 @@ app.post("/api/register", async (req, res) => {
   const { fullName, email, password } = req.body ?? {};
 
   if (!fullName || !email || !password) {
-    return res.status(400).json({ error: "Name, email and password are required." });
+    return res.status(400).json({ error: "Name, Email and Password are required." });
   }
-  if (password.length < 10 || password.length > 20) {
-    return res.status(400).json({ error: "Password must be 10 to 20 characters." });
+  if (password.length < 5 || password.length > 15) {
+    return res.status(400).json({ error: "Password must be 5 to 15 characters." });
   }
   if (!/\d/.test(password)) {
     return res.status(400).json({ error: "Password must contain a number." });
@@ -54,7 +54,7 @@ app.post("/api/register", async (req, res) => {
 
   if (error) {
     if (error.code === "user_already_exists") {
-      return res.status(409).json({ error: "The email you entered is already being used." });
+      return res.status(409).json({ error: "The Email you entered is already being used." });
     }
     console.error("Supabase signUp error:", error);
     return res.status(400).json({ error: error.message });
@@ -80,7 +80,7 @@ app.post("/api/login", async (req, res) =>{
 
   if (error) {
     if (error.code === "invalid_credentials") {
-      return res.status(401).json({ error: "Invalid email or password." });
+      return res.status(401).json({ error: "Invalid Email or Password." });
     }
     console.error("Supabase login error:", error);
     return res.status(500).json({ error: "Something went wrong. Please try again." });
