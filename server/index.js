@@ -1,4 +1,6 @@
 // server/index.js
+require("dotenv").config();
+
 const multer = require("multer");
 const express = require("express");
 const formidable = require("formidable");
@@ -7,9 +9,25 @@ const path = require('path');
 const crypto = require('crypto');
 const supabase = require("./supabaseClient");
 const app = express();
+const resumeRoutes = require("./routes/resumes");
+
+
+
+app.get("/", (req, res) => {
+    res.redirect("/register.html");
+});
+
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "..", "client"), { extensions: ["html"] } ));
+
+app.use(
+    express.static(
+        path.join(__dirname, "..", "client"),
+        { extensions: ["html"] }
+    )
+);
+
+app.use("/api/resumes", resumeRoutes);
 
 const diskstorage = multer.diskStorage({
 
@@ -29,6 +47,9 @@ const upload = multer({storage: multer.memoryStorage() });
 app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
 });
+
+
+
 
 app.post("/api/register", async (req, res) => {
   const { fullName, email, password } = req.body ?? {};
