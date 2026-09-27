@@ -1,4 +1,6 @@
 // server/index.js
+require("dotenv").config();
+
 const multer = require("multer");
 const express = require("express");
 const formidable = require("formidable");
