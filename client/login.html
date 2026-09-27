@@ -1,0 +1,36 @@
+<!doctype html>
+<html >
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="register.css" />
+  </head>
+
+  <body>
+      <section class="register">
+        <img class="logo" src="logo.png" alt="CareerConnect logo" />
+        <h1>Log in</h1>
+        <p class="info">Welcome to CareerConnect.</p>
+
+        <form id="loginForm">
+          <div class="form">
+            <input name="email" type="email" placeholder="Email"
+                    />
+          </div>
+
+          <div class="form">
+            <input name="password" type="password" placeholder="Password"
+                   />
+          </div>
+
+          <button  type="submit">Log in</button>
+          <p id="message" role="status"></p>
+        </form>
+
+        <p class="info">
+           Don't have an account? <a href="/register">Create an account</a>
+        </p>
+      </section>
+
+    <script src="login.js"></script>
+  </body>
+</html>
