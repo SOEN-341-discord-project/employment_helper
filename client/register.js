@@ -30,13 +30,16 @@ form.addEventListener("submit", async function (event) {
       body: JSON.stringify(regist)
     });
 
-    if (response.status===409) {
-      message.textContent = "The Email you entered is already being used.";
-    } else if (response.ok) {
-      message.textContent = "Account successfully created!"; 
-    } else {
-      message.textContent = "Error. Try again.";
-    }
+   const data = await response.json();
+
+if (response.status === 409) {
+  message.textContent = "The Email you entered is already being used.";
+} else if (response.ok) {
+  message.textContent = "Account successfully created!";
+} else {
+  message.textContent = data.error || "Error. Try again.";
+}
+
  } catch (err) {
   
     message.textContent = "Server error. Cannot create account.";
