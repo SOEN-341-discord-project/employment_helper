@@ -31,4 +31,4 @@ September 21 2026
 - Begin working on the Sprint 1 features. (Arman , Amer , Liam, Jamar)
 
 ## Next Meeting
-To be determined.
+September 26 2026
