@@ -20,3 +20,6 @@ Member: Amer Abou Ahmad : US-04.01
 
 I implemented the backend resume upload functionality using express and Formidable, including file validation and to make sure the user does not upload a file that is larger than 5MB in size. I integrated Supabase storage so resumes are stored permanently in the "resumes" bracket of the Supabase database. I also added and connected the /api/resumes/upload route to the main Express server and tested that it works fine and that the files are actually being stored in the Supabase by posting through Postman sample files. I also created the cover page and contributed to the readme file. 
 
+Member: Jamar Warner Johnson
+
+I set up the project structure in Node.js backend by initializing the project with npm (node package manager) and configuring the infancy of the project. This included the initial dependencies/packages like express and formidable. I created the main server.js file which initializes the express app. I organized the project initially into different folders to better allow for clarity when developing new functions.
