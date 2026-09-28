@@ -1,13 +1,26 @@
-Sprint 1:
+# Meeting 2
 
-Me met twice before sprint1 to discuess this project.
+## Date and Time
+September 26 2026
 
-Meeting one:
-It was held in person, we basically discussed who will work on what. We planned everything out, and laid out what should be done and when.
+## Location
+In person
 
-Meeting Two:
-We applied and did what we planned. We mainly worked on the login page and the file upload mechanism. We also implemented Supabase database to store the uploaded resumes and the accounts created so they could be stored permanently. We reviewed and finalized everything before sprint1 deadline.
+## Attendees
 
-Kindly note that obviously we did not include everything we did and talked about in the meeting minutes in this file, but this is just to give you a general picture of what was goign on. Most of the troubleshooting, working, and calloborating was done casually through discord without holding official meeting minutes. 
+Georges Mourad
+Amer Abou Ahmad
+Jamar Warner Johnson
+Arman Zakarian
+Liam Casasola
 
-We basically "read the requirements, established the development enviornment, organized the team, identified project requirements, and implemented the first basic functionalites" as outlined in the sprint1 requirements. 
+## Agenda
+- Review the Sprint 1 requirements.
+- Discuss the work that needed to be completed.
+- Divide the work between team members.
+- Establish deadlines for the planned tasks.
+
+## Decisions
+- The team divided the Sprint 1 work between members.
+- The main features selected for Sprint 1 were user registration/login and resume upload.
+- The team established what needed to be completed before the Sprint 1 deadline.
