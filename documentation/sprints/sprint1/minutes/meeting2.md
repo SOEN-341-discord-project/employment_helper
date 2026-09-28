@@ -8,11 +8,11 @@ In person
 
 ## Attendees
 
-Georges Mourad
-Amer Abou Ahmad
-Jamar Warner Johnson
-Arman Zakarian
-Liam Casasola
+-Georges Mourad
+-Amer Abou Ahmad
+-Jamar Warner Johnson
+-Arman Zakarian
+-Liam Casasola
 
 ## Agenda
 - Review the Sprint 1 requirements.
