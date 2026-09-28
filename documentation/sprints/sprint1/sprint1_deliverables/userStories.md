@@ -13,6 +13,7 @@ US-03 — Profile Management
 As a job seeker, I want to update my skills, education, and work experience so that recruiters can view my current qualifications.
 
 US-04 — Resume Upload (DONE)
+
 As a job seeker, I want to upload my resume so that I can use it when applying for jobs.
 
 US-05 — Job Posting Creation
