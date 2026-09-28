@@ -20,7 +20,7 @@ September 21 2026
 
 ## Decisions
 - The project will be called CareerConnect.
-- The team will use HTML, CSS, JavaScript, Python, Node.js, Express.js, Supabase, and Vercel.
+- The team will use HTML, CSS, JavaScript, Node.js, Express.js, Supabase, and Vercel.
 - GitHub will be used for source control, issues, and sprint tracking.
 - A GitHub project board will be used to track tasks.
 
