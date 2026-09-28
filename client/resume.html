@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Resume</title>
+  <link rel="stylesheet" href="resume.css">
+</head>
+
+<body>
+  <main class="resume-page">
+    <img class="logo" src="logo.png" alt="Employment Helper logo">
+
+    <h1>Upload your resume</h1>
+    <p class="info">
+      Select a PDF or Word document.
+    </p>
+
+    <form id="resumeForm">
+      <label for="resumeFile">Resume</label>
+
+      <input
+        id="resumeFile"
+        name="resume"
+        type="file"
+        accept=".pdf,.doc,.docx"
+        required
+      >
+
+      <p id="fileName">No file selected</p>
+
+      <button type="submit">Upload resume</button>
+
+      <p id="message"></p>
+    </form>
+  </main>
+
+  <script src="resume.js"></script>
+</body>
+</html>
