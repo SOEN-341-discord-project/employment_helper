@@ -9,10 +9,15 @@ There was a successful attempt to recreate the CSS visual environment
 ( CSS login page tutorials on youtube)
 
 
-The page checks for valid password entries when creating accounts via JS and displays messages for invalid entries. Addiitonally, these entries are sent over to the server side and certain messages (e.g error) can also be displayed depending on the server response.
-
+The registration page checks for valid password entries when creating accounts via JS and displays messages for invalid entries.( browser checks ) Addiitonally, these entries are sent over to the server side and certain messages (e.g email already being in use ) can also be displayed depending on the server response.
+(e.g account successfully created ) ( server checks ) The login page operates on the same principal ; the user inputs their credentials 
+and the submit POST form generates a server side response (e.g redirecting to
+the upload page; having invalid credentials display messages ) 
 
 Local host verificaations were done, but backend checks are still needed after backend implementation is done.
+
+I also helped solve some server side problems ( explicit root handling )
+
 
 
 Member: Amer Abou Ahmad : US-04.01
