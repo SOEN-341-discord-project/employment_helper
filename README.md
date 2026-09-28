@@ -63,3 +63,9 @@ Giorgio Azzi - 40342084
 - Saved jobs and favourites. 
 - AI-assisted resume feedback 
 - AI-assisted job description summaries
+
+
+
+GitHub Link:
+
+https://github.com/SOEN-341-discord-project/employment_helper
