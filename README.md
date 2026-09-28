@@ -31,7 +31,6 @@ Giorgio Azzi - 40342084
 - HTML
 - CSS
 - JavaScript
-- Python
 - Node.js
 - Express.js
 - Supabase
@@ -43,7 +42,10 @@ Giorgio Azzi - 40342084
 1. Clone the GitHub repository.
 2. Open the project in Visual Studio Code.
 3. Install the required dependencies using "npm install"
-4. Run the backend server using "node server/index.js"
+4. Code the login-page front and back-end
+5. Code the backend of the file upload mechanism
+6. Run the backend server using "node server/index.js"
+7. Configure a Supabase database to hold seperately the uploaded resumes and the signed up users' credentials. 
 
 > Comment : These step instructions needs to be updated later as the project advance more and more. 
 
