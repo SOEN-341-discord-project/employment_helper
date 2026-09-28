@@ -55,7 +55,7 @@ form.addEventListener("submit", async function (event) {
   message.textContent = "";
 
   try {
-    const response = await fetch("/upload", {
+    const response = await fetch("/api/resumes/upload", {
       method: "POST",
       body: formData
     });
@@ -69,7 +69,7 @@ form.addEventListener("submit", async function (event) {
       form.reset();
       fileName.textContent = "No file selected";
     } else {
-      message.textContent = data.error || "Unable to upload the resume.";
+      message.textContent = data.error || data.message || "Unable to upload the resume.";
       message.style.color = "red";
     }
   } catch (error) {
