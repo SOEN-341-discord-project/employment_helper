@@ -33,3 +33,9 @@ Member: Liam Casasola
 Issue: US-01.2, US-02.2
 
 For the first sprint I mainly handled the back end portion of the login and user registration page. I created our team's Supabase project and built the register and login routes. The server checks input, catches duplicate emails, gives a generic message on failed logins, and returns an access token. I kept our keys out of GitHub with a .env file, matched the password rules with our front end, and fixed the page links by including an HTML extension. Then I merged my work to the master repository after discussing my code with my teammates.
+
+
+
+Member: Georges Mourad
+
+For Sprint 1, I mainly worked on the project organization and documentation. I organized the 15 user stories as GitHub Issues and added the task breakdowns, labels, types, priorities, and effort levels. I also worked on the Sprint 1 planning, including the backlog, priorities, effort estimation, team capacity, and risks. I contributed to the meeting minutes, AI usage documentation, and the Team Process Definition. I also helped organize the GitHub project board and Sprint 1 deliverables.
