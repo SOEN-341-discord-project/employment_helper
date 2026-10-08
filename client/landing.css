@@ -166,26 +166,12 @@ h2 {
   white-space: nowrap;
 }
 .brand-mark {
-  position: relative;
-  font-size: 41px;
-  line-height: 30px;
-  font-weight: 700;
-  color: var(--accent);
-  width: 34px;
-  height: 35px;
-  letter-spacing: -5px;
-}
-.brand-mark > span {
-  font-size: 27px;
-  position: absolute;
-  right: 0;
-  top: -6px;
-  letter-spacing: 0;
-}
-.brand-dot {
-  font-size: 9px;
-  align-self: flex-start;
-  margin: 2px 0 0 -5px;
+  display: block;
+  width: 46px;
+  height: 31px;
+  object-fit: contain;
+  flex-shrink: 0;
+  mix-blend-mode: multiply;
 }
 .desktop-nav {
   display: flex;
@@ -502,11 +488,13 @@ h2 {
   color: #363636;
 }
 .dashboard-logo {
-  font-size: 25px;
-  letter-spacing: -4px;
-  color: var(--accent);
+  display: block;
+  width: 32px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
   margin-right: 6px;
-  font-weight: 700;
+  mix-blend-mode: multiply;
 }
 .demo-label {
   font-size: 6px;
@@ -2046,15 +2034,8 @@ h2 {
     gap: 7px;
   }
   .brand-mark {
-    font-size: 35px;
-    width: 28px;
-  }
-  .brand-mark > span {
-    font-size: 23px;
-    top: -5px;
-  }
-  .brand-dot {
-    font-size: 7px;
+    width: 35px;
+    height: 24px;
   }
   .header-actions {
     gap: 16px;
@@ -2166,7 +2147,8 @@ h2 {
     font-size: 7px;
   }
   .dashboard-logo {
-    font-size: 20px;
+    width: 26px;
+    height: 18px;
   }
   .dashboard-sidebar {
     width: 31px;
