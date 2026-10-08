@@ -14,7 +14,7 @@ const resumeRoutes = require("./routes/resumes");
 
 
 app.get("/", (req, res) => {
-    res.redirect("/register.html");
+    res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
 
