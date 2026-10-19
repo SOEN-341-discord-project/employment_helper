@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="profile.css">
+  <script src="profile.js" defer></script>
+  <script src="navbar.js" defer></script>
+  <!-- waits for the html to be done before
+  executing js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" 
+  rel="stylesheet">
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <form class="profile" id="profileForm">
+      <label class="field">Full name
+        <input 
+        name="fullName" 
+        type="text"
+        maxlength="100" 
+        required
+        placeholder="Enter your Full name"></label>
+      <label class="field"> Email 
+        <input 
+        name="email" 
+        type="email" 
+        maxlength="100" 
+        required 
+        placeholder="Enter your email"> </label>
+      <label class="field"> Skills
+        <input 
+        name="skills" 
+        type="text"
+        maxlength="100" 
+        required 
+        placeholder="Java, HTML, CSS"> </label>
+      <span class="comment" id="skill-comment">Separate skills with commas.</span>
+
+       <!--RESUME -->
+      <div class="field">
+
+        <label for="resumeFile">Résumé</label>
+
+        <div class="resume-upload">
+
+          <button type="button" 
+           onclick="document.getElementById('resumeFile').click()">
+            <img src="paperclip.png" >
+          </button>
+
+          <span id="resumeName">No file selected</span>
+
+        </div>
+
+        <input 
+        id="resumeFile" 
+        name="resume"
+         type="file" 
+         accept=".pdf,.doc,.docx" 
+         hidden>
+      </div>
+       <p id="message" role="status"></p>
+    
+       <!-- PREFERENCES -->
+
+    <label class="field">
+      Preferred job location
+      <input 
+       name="location"
+       type="text"
+       maxlength="100"
+       placeholder="Montréal, Québec, Canada" required>
+       </label>
+
+<label class="field">
+  Work preference
+  <select name="workPreference" required>
+    <option value="any">Any</option>
+    <option value="on-site">On-site</option>
+    <option value="hybrid">Hybrid</option>
+    <option value="remote">Remote</option>
+  </select>
+</label> 
+
+<label class="field">  Work hours
+  <select name="workHours" required>
+     <option value="any">Any</option>
+     <option value="full-time">Full-time</option>
+     <option value="part-time">Part-time</option>
+  </select>
+</label>
+
+<label class="field">
+  Contract type
+  <select name="contractType" required>
+    <option value="any">Any</option>
+    <option value="permanent">Permanent</option>
+    <option value="contract">Contract</option>
+    <option value="temporary">Temporary</option>
+    <option value="internship">Internship</option>
+  </select>
+</label>
+
+     <p id="profileMessage" role="status"></p>
+
+      <div class="action">
+        <button type="button" id="cancel">Cancel</button>
+        <button type="submit" class="save" id="save">Save changes
+
+        </button>
+      </div>
+
+
+    </form>
+  </section>
+</body>
+</html>
