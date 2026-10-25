@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jobs</title>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="jobs.css">
+  <script src="jobs.js" defer></script>
+  <script src="navbar.js" defer></script>
+  <!-- defer waits for the html to be done before running js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+  rel="stylesheet">
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <main class="jobs">
+
+    <h1 class="jobs-title">Job listings</h1>
+
+    <!-- SEARCH + FILTERS -->
+    <form id="searchForm">
+      <label class="field">Keyword
+        <input
+        name="keyword"
+        type="text"
+        maxlength="100"
+        placeholder="Job title, company or skill"></label>
+
+      <label class="field">Location
+        <input
+        name="location"
+        type="text"
+        maxlength="100"
+        placeholder="Montreal"></label>
+
+      <label class="field">Category
+        <select name="category">
+          <option value="">All categories</option>
+          <option value="Software">Software</option>
+          <option value="Hardware">Hardware</option>
+          <option value="Data">Data</option>
+          <option value="Design">Design</option>
+        </select></label>
+
+      <div class="action">
+        <button type="button" id="clearButton">Clear</button>
+        <button type="submit" class="save">Search</button>
+      </div>
+    </form>
+
+    <!-- says how many jobs were found or if something broke -->
+    <p id="message" role="status"></p>
+
+    <!-- the job cards get put in here by jobs.js -->
+    <div id="jobList"></div>
+
+  </main>
+</body>
+</html>
