@@ -73,7 +73,7 @@ body {
 .resume-upload img { display: block; width: 20px; height: 20px; }
 
 
-//resume upload message and profile update message 
+
 
 #message { margin: 10px 0; font-size: 12px; color: #777; }
 /* when the message has 0 elements its not gonna display/take space*/

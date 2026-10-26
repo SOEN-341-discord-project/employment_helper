@@ -9,7 +9,7 @@ const path = require('path');
 const crypto = require('crypto');
 const supabase = require("./supabaseClient");
 const app = express();
-const resumeRoutes = require("./routes/resumes");
+const profileRoutes = require("./routes/profile");
 const jobRoutes = require("./routes/jobs");
 
 
@@ -27,7 +27,7 @@ app.use(
     )
 );
 
-app.use("/api/resumes", resumeRoutes);
+app.use("/api/profile", profileRoutes);
 app.use("/api/jobs", jobRoutes);
 
 const diskstorage = multer.diskStorage({
