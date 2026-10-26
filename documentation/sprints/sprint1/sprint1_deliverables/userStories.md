@@ -46,7 +46,7 @@ US-12 — Personalized Jobs and Common Requirements
 US-13 Insight Info
 As a job seeker, I want to have insight on each listing, I want to see how many person applied to each position and for how long this listing has been posted.
 
-US-14
+US-14 - Friendly UI
 As a job seeker, I want the UI to be very easy to understand and to navigate through.
 
 US-15
