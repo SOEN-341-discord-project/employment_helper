@@ -48,10 +48,10 @@ As a job seeker, I want to have insight on each listing, I want to see how many 
 
 US-14 - Friendly UI
 As a job seeker, I want the UI to be very easy to understand and to navigate through.
-    TASK US-14.1: As a job seaker, I want a nice landingpage that is clear and easy to navigation through with no jardins.
-        Task US-14.1.1: Log-in button that prompts to the login page
-        Task US-14.1.2: Create an account button
-        Task US-14.1.3: Nice and simple landing page with a guide on how to proceed
+    TASK US-14.6: As a job seaker, I want a nice landingpage that is clear and easy to navigation through with no jardins.
+        Task US-14.6.1: Log-in button that prompts to the login page
+        Task US-14.6.2: Create an account button
+        Task US-14.6.3: Nice and simple landing page with a guide on how to proceed
 
 US-15
 As a job seeker, I want to have control on what type of emails and notifications I recieve. I want to choose if I only want to get notified when I get an interview or also when a new position is out.
