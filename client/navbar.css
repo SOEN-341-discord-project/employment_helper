@@ -30,3 +30,14 @@
 .navbar a.active img {
   opacity: 1;
 }
+
+/* Text links for the new application and recruiter pages. */
+.navbar .nav-label {
+  color: #ffffff;
+  font: 11px Arial, sans-serif;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* Keep the extra navigation links inside narrow phone screens. */
+.navbar { max-width: calc(100% - 24px); }

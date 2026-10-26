@@ -125,6 +125,48 @@ function makeJobCard(job) {
   details.appendChild(reqList);
   details.appendChild(posted);
 
+  // Feature 3: apply to this job using the résumé saved in the profile.
+  const applyNote = document.createElement("p");
+  applyNote.textContent = "Applying shares your saved name, email, and résumé with this employer.";
+  details.appendChild(applyNote);
+  const applyButton = document.createElement("button");
+  applyButton.type = "button";
+  applyButton.className = "save";
+  applyButton.textContent = "Apply with saved résumé";
+  const applyMessage = document.createElement("p");
+  applyMessage.setAttribute("role", "status");
+  applyButton.addEventListener("click", async function () {
+    const token = sessionStorage.getItem("accessToken");
+    if (!token) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    applyButton.disabled = true; // Prevent repeated clicks while saving.
+    applyMessage.textContent = "Submitting application...";
+    try {
+      const response = await fetch("/api/applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: token },
+        body: JSON.stringify({ job_id: job.id })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        // A duplicate stays disabled; other failures allow a retry.
+        applyButton.disabled = response.status === 409;
+        applyMessage.textContent = data.error || "Unable to apply. Try again.";
+        return;
+      }
+      applyButton.textContent = "Applied";
+      applyMessage.textContent = data.message;
+    } catch (error) {
+      applyButton.disabled = false;
+      applyMessage.textContent = "Unable to reach the server. Try again.";
+    }
+  });
+  details.appendChild(applyButton);
+  details.appendChild(applyMessage);
+
   card.appendChild(summary);
   card.appendChild(details);
 

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recruiter dashboard | CareerConnect</title>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="feature-pages.css">
+  <script src="navbar.js" defer></script>
+  <script src="feature-api.js" defer></script>
+  <script src="recruiter.js" defer></script>
+</head>
+<body>
+  <div id="navbar"></div>
+  <main class="workspace">
+    <header class="page-heading">
+      <div>
+        <p class="eyebrow">YOUR HIRING SPACE</p>
+        <h1>Recruiter dashboard</h1>
+        <p class="muted">Manage your postings and meet your applicants.</p>
+      </div>
+      <button type="button" id="refreshDashboard">Refresh dashboard</button>
+    </header>
+    <p id="dashboardMessage" role="status">Checking recruiter access...</p>
+
+    <!-- Hidden until the server confirms that this account is a recruiter. -->
+    <div id="recruiterContent" hidden>
+      <div class="dashboard-grid">
+        <section class="panel" aria-labelledby="formTitle">
+          <h2 id="formTitle">Create a posting</h2>
+          <!-- The same form creates a new posting or edits an existing one. -->
+          <form id="postingForm">
+            <label>Job title
+              <input name="title" required maxlength="120" placeholder="Junior Web Developer">
+            </label>
+            <label>Company
+              <input name="company" required maxlength="120" placeholder="Company name">
+            </label>
+            <label>Location
+              <input name="location" required maxlength="120" placeholder="Montreal">
+            </label>
+            <div class="form-row">
+              <label>Category
+                <select name="category" required>
+                  <option value="Software">Software</option>
+                  <option value="Hardware">Hardware</option>
+                  <option value="Data">Data</option>
+                  <option value="Design">Design</option>
+                </select>
+              </label>
+              <label>Job type
+                <select name="job_type" required>
+                  <option value="Full-time">Full-time</option>
+                  <option value="Part-time">Part-time</option>
+                  <option value="Internship">Internship</option>
+                  <option value="Contract">Contract</option>
+                  <option value="Temporary">Temporary</option>
+                </select>
+              </label>
+            </div>
+            <label>Description
+              <textarea name="description" rows="4" required maxlength="10000" placeholder="What will the person do?"></textarea>
+            </label>
+            <label>Requirements — one per line
+              <textarea name="requirements" rows="4" required maxlength="10000" placeholder="Basic HTML and CSS"></textarea>
+            </label>
+            <div class="button-row">
+              <button type="submit" class="primary" id="savePosting">Publish posting</button>
+              <button type="button" id="cancelEdit" hidden>Cancel edit</button>
+            </div>
+            <p id="postingMessage" role="status" class="small"></p>
+          </form>
+        </section>
+
+        <section aria-labelledby="postingsTitle">
+          <h2 id="postingsTitle">Your postings</h2>
+          <p class="muted small">Closed postings leave job search. Existing applications stay saved.</p>
+          <div id="postingList" class="card-list"></div>
+        </section>
+      </div>
+
+      <section class="applicant-section" aria-labelledby="applicantsTitle">
+        <h2 id="applicantsTitle">Applicants</h2>
+        <p id="applicantMessage" role="status" class="muted">Choose “View applicants” on a posting above.</p>
+        <div id="applicantList" class="card-list"></div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

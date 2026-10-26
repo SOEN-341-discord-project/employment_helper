@@ -12,6 +12,9 @@ form.addEventListener("submit", async function (event) {
      const regist = {fullName: fullName.value.trim(),email: email.value.trim(),password: passw
   };
 
+  // The selected radio button determines the account type sent to the server.
+  regist.accountType = form.elements.accountType.value;
+
     if (!/\d/.test(passw)) {
   return message.textContent="Password must contain a number.";
 }
@@ -35,7 +38,7 @@ form.addEventListener("submit", async function (event) {
 if (response.status === 409) {
   message.textContent = "The Email you entered is already being used.";
 } else if (response.ok) {
-  message.textContent = "Account successfully created!";
+  message.textContent = data.message || "Account successfully created! Please log in.";
 } else {
   message.textContent = data.error || "Error. Try again.";
 }

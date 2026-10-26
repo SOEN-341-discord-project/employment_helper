@@ -17,6 +17,20 @@
         <p class="info">Your job search made simple.</p>
 
         <form id="registerForm">
+          <!-- Radio buttons allow exactly one account type to be selected. -->
+          <fieldset class="account-type">
+            <legend>I am signing up as a</legend>
+            <div class="account-options">
+              <label class="account-option">
+                <input type="radio" name="accountType" value="job_seeker" checked>
+                Job seeker
+              </label>
+              <label class="account-option">
+                <input type="radio" name="accountType" value="recruiter">
+                Recruiter
+              </label>
+            </div>
+          </fieldset>
           <div class="form">
             <input name="fullName" type="text" placeholder="Name"   />
           </div>
