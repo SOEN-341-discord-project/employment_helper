@@ -45,6 +45,62 @@ router.get("/", async function (req, res) {
 
 
 
+// GET /api/profile/resume-links
+// The login check above runs before this route, just like the other routes.
+router.get("/resume-links", async function (req, res) {
+  // These private, temporary links should not be cached by the browser.
+  res.set("Cache-Control", "no-store");
+
+  try {
+    // Read the file path from the logged-in user's own profile.
+    // We do not accept another user's ID or a file path from the browser.
+    const result = await supabase
+      .from("career_profiles")
+      .select("resume_name, resume_path")
+      .eq("id", req.user.id)
+      .maybeSingle();
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    const profile = result.data;
+    if (!profile || !profile.resume_path) {
+      return res.status(404).json({ error: "No saved résumé found." });
+    }
+
+    // A signed URL lets the browser access a private file temporarily.
+    // 3600 seconds is one hour. Refreshing the profile gets fresh links.
+    const view = await supabase.storage
+      .from("resumes")
+      .createSignedUrl(profile.resume_path, 3600);
+
+    if (view.error) {
+      throw view.error;
+    }
+
+    // The download option asks the browser to save the file.
+    // Use the original filename rather than the timestamp used in Storage.
+    const download = await supabase.storage
+      .from("resumes")
+      .createSignedUrl(profile.resume_path, 3600, {
+        download: profile.resume_name || "resume.pdf"
+      });
+
+    if (download.error) {
+      throw download.error;
+    }
+
+    res.json({
+      viewUrl: view.data.signedUrl,
+      downloadUrl: download.data.signedUrl
+    });
+  } catch (error) {
+    console.error("Résumé links error:", error);
+    res.status(500).json({ error: "Unable to open the saved résumé. Try refreshing the page." });
+  }
+});
+
 //form checking
 
 router.post("/", function (req, res) {

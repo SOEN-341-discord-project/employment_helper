@@ -6,6 +6,45 @@ const profileMessage = document.querySelector("#profileMessage");
 const saveButton = document.querySelector("#save");
 const cancelButton = document.querySelector("#cancel");
 
+// Find the two links and the container that holds them.
+const resumeLinks = document.getElementById("resumeLinks");
+const viewResume = document.getElementById("viewResume");
+const downloadResume = document.getElementById("downloadResume");
+
+// Ask the server for temporary links to this user's saved résumé.
+// The secret Supabase key stays on the server.
+async function loadResumeLinks() {
+  // Hide old links before loading the current file's links.
+  resumeLinks.hidden = true;
+  viewResume.removeAttribute("href");
+  downloadResume.removeAttribute("href");
+
+  // A new account has no saved file to view or download yet.
+  if (!hasSavedResume) {
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/profile/resume-links", {
+      // Send the login token so the server can identify the user.
+      headers: { Authorization: sessionStorage.getItem("accessToken") }
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Unable to load résumé links.");
+    }
+
+    // href is the destination opened when a link is clicked.
+    viewResume.href = data.viewUrl;
+    downloadResume.href = data.downloadUrl;
+    resumeLinks.hidden = false;
+  } catch (error) {
+    // The profile can still be saved even if opening its file fails.
+    profileMessage.textContent = error.message;
+  }
+}
+
 
 
 const allowedExtensions = ["pdf", "doc", "docx"];
@@ -114,6 +153,8 @@ try {
     resumeFile.value = "";
     fileName.textContent = savedResumeName;
     profileMessage.textContent = "Profile saved successfully!";
+    // Update the links after uploading or replacing the saved résumé.
+    await loadResumeLinks();
   } else {
     profileMessage.textContent =
       data.error || data.message || "Unable to save the profile.";
@@ -185,6 +226,9 @@ async function loadProfile() {
 
       fileName.textContent = savedResumeName;
     }
+
+    // Restore links to the saved file when the page is opened or refreshed.
+    await loadResumeLinks();
 
     savedProfile = new FormData(form);
     profileLoaded = true;
