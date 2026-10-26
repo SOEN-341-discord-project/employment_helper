@@ -160,11 +160,11 @@ Time and Supporting Evidence
 
 
 
-CSS, profile page, résumé integration, navbar and login.js :  Implementation commit⁠￼ https://github.com/SOEN-341-discord-project/employment_helper/commit/cb0577fa378e354cd4c0e8984cdae8515924064c
+CSS, profile page, résumé integration, navbar and login.js :  Implementation commit⁠ https://github.com/SOEN-341-discord-project/employment_helper/commit/cb0577fa378e354cd4c0e8984cdae8515924064c
 
 
 
-Backend connection, profile saving, loading and Cancel :  Implementation commit⁠￼ https://github.com/SOEN-341-discord-project/employment_helper/commit/3e7ec2cd14e12f624a3cb79667e024ea9a4b044a
+Backend connection, profile saving, loading and Cancel :  Implementation commit⁠ https://github.com/SOEN-341-discord-project/employment_helper/commit/3e7ec2cd14e12f624a3cb79667e024ea9a4b044a
 
 
 
@@ -172,11 +172,11 @@ Supabase profile table :  Configured directly in Supabase.
 
 
 
-Amer merging my branch into master  Merge pull request #31⁠￼. https://github.com/SOEN-341-discord-project/employment_helper/commit/683df951752c24c5460380d3daf2457eeef532d2
+Amer merging my branch into master  Merge pull request #31 https://github.com/SOEN-341-discord-project/employment_helper/commit/683df951752c24c5460380d3daf2457eeef532d2
 
 
 
-Documentation :  Sprint 2 contributions⁠￼.https://github.com/SOEN-341-discord-project/employment_helper/commit/30c5c3ebab5ebbc5c9a0a73f3666f0fc1d3aa778
+Documentation :  Sprint 2 contributions⁠.https://github.com/SOEN-341-discord-project/employment_helper/commit/30c5c3ebab5ebbc5c9a0a73f3666f0fc1d3aa778
 
 
 
