@@ -28,3 +28,7 @@ jobs:
       # Check each JavaScript file without starting the server.
       - name: Check JavaScript syntax
         run: find client server -name "*.js" -print0 | xargs -0 -n 1 node --check
+
+      # Test valid and invalid IDs and job-posting information.
+      - name: Run automated unit tests
+        run: npm test
