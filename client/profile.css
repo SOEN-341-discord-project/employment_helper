@@ -1,0 +1,94 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding-top: 40px;
+  background: white;
+  color: #222;
+  font-family: "Inter", sans-serif;
+}
+
+.profile {
+  width: 90%;
+  max-width: 600px;
+  margin: 100px auto 30px;
+}
+
+.profile-title { margin: 18px 0 8px; }
+.profile h2 { margin: 0; font-size: 15px; }
+
+.field {
+  display: block;
+  margin: 6px 0;
+  font-size: 12px;
+}
+
+.profile input:not([type="file"]),
+.profile select {
+  width: 100%;
+  padding: 6px 0;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;
+  background: transparent;
+  color: #222;
+  font: inherit;
+}
+
+.profile input:focus,
+.profile select:focus {
+  outline: none;
+  border-bottom-color: #222;
+}
+
+.profile input::placeholder { color: #999; }
+.comment { font-size: 11px; color: #777; }
+
+.action { margin-top: 16px; text-align: right; }
+
+.profile button {
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: #f1f1f1;
+  color: #222;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.profile .save { background: #222; color: white; }
+.profile button:disabled { opacity: .4; cursor: default; }
+
+.resume-upload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+  color: #999;
+}
+
+.resume-upload button { padding: 0; background: transparent; }
+.resume-upload img { display: block; width: 20px; height: 20px; }
+
+
+//resume upload message and profile update message 
+
+#message { margin: 10px 0; font-size: 12px; color: #777; }
+/* when the message has 0 elements its not gonna display/take space*/
+#message:empty { display: none; }
+
+#profileMessage:empty {
+  display: none;
+}
+#profileMessage { margin: 10px 0; font-size: 12px; color: #777; }
+
+.profile select {
+  appearance: none;
+  padding: 6px 0;
+  text-indent: 0;
+}
+.field:has(select) {
+  margin: 17px 0;
+}
