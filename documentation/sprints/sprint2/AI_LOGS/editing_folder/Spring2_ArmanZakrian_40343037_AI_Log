@@ -1,1 +1,85 @@
 
+Task ID/Title: Navbar icons and résumé upload icon 
+
+Purpose of AI Use: generate icons for the website 
+
+Chat Link or Prompt/Response:
+https://chatgpt.com/share/6adf9ff7-c0c4-83e8-ba9e-6b6a88bedec6
+
+AI-Suggested Content: created navbar icons /paperclip logo when prompted to make them white png with transparent background. 
+
+Validation: Reviewed the outputs and requested changes to the colour and format to respect the UI targets.
+
+Decision: Accepted, the additional formats were disregarded,the white png icons with transparent background kept.
+
+Reflection: AI helped generate icons that respect the constraints imposed unto its outputs.
+
+Responsible Person: Arman Zakarian, 40343037
+
+Task ID/Title: Styling default form controls.
+
+Purpose of AI Use: understand whether it is possible to alter a default file upload /date time/ radio / option buttons UI to customize it. 
+
+Chat Link or Prompt/Response:
+https://chatgpt.com/share/6adf9ff7-c0c4-83e8-ba9e-6b6a88bedec6
+
+AI-Suggested Content: Suggested CSS selectors and properties that could be used to alter these controls. Explained the limitations of modifying the parts controlled by the browser.
+
+Validation: Reviewed the explanations in relation to the inputs being used in the profile page.
+
+Decision: Accepted as explanations to understand how these controls can be styled.
+
+Reflection: AI helped explain what could be modified using CSS and what could not,without requiring a complete implementation.
+
+Responsible Person: Arman Zakarian, 40343037
+
+Task ID/Title: Replacing the default Choose file text with an image.
+
+Purpose of AI Use: understand how one would replace the default file upload button by an image,by requesting a roadmap without directly giving the answer.
+
+Chat Link or Prompt/Response:
+https://chatgpt.com/share/6adf9ff7-c0c4-83e8-ba9e-6b6a88bedec6
+
+AI-Suggested Content: Suggested keeping the actual file input and connecting it to a visible image. Subsequently explained the input id,the label for attribute and displaying the selected file name.
+
+Validation: the paperclip button used  to activate the hidden file input and displays the selected file name next to it.
+
+Decision: Accepted, the general approach was adapted to the profile page using a button.
+
+Reflection: AI helped explain how the visible image and actual file input work together,rather than replacing the actual file input itself.
+
+Responsible Person: Arman Zakarian, 40343037
+
+Task ID/Title: CareerConnect logo redesign.
+
+Purpose of AI Use: generate a visually relevant logo that matches the UI targets of the CareerConnect site.
+
+Chat Link or Prompt/Response:
+https://chatgpt.com/share/6adf9fff-b2f8-83e8-8976-11add0d2683b
+
+AI-Suggested Content: created a logo with a transparent background when prompted to integrate a hidden C shape. Subsequently modified the shape,colour,grain and shine.
+
+Validation:  Subsequently requested more retro grain and slightly less shine.
+
+Decision: The initial design was disregarded,the revised designn  kept for modifications.
+
+Reflection: AI helped generate a brand logo that required modifications in order to respect the constraints imposed unto its outputs.
+
+Responsible Person: Arman Zakarian, 40343037
+
+Task ID/Title: Generate a sidebar image.
+
+Purpose of AI Use: generate a  image for the sidebar that correspond to the goals I had for the UI.
+
+Chat Link or Prompt/Response:
+https://chatgpt.com/share/6adf9fff-b2f8-83e8-8976-11add0d2683b
+
+AI-Suggested Content: created a staircase design with ivory and charcoal colours to represent career progression.
+
+Validation: Reviewed the output against the intended design . Requested different colours that match the logo and an abstract design.
+
+Decision: The staircase design was disregarded,an abstract design with colours matching the logo,rather,was requested.(  which was finally disregarded too ) 
+
+Reflection: AI helped explore visual designs,but required many many  corrections as the initial outputs seem to not follow my user input.
+
+Responsible Person: Arman Zakarian, 40343037
