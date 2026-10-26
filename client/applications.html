@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My applications | CareerConnect</title>
+  <!-- Reuse the existing navigation and add styling only for the new pages. -->
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="feature-pages.css">
+  <!-- defer runs these scripts after the HTML is ready, in this order. -->
+  <script src="navbar.js" defer></script>
+  <script src="feature-api.js" defer></script>
+  <script src="applications.js" defer></script>
+</head>
+<body>
+  <div id="navbar"></div>
+  <main class="workspace">
+    <header class="page-heading">
+      <div>
+        <p class="eyebrow">YOUR JOB SEARCH</p>
+        <h1>My applications</h1>
+        <p class="muted">See where you applied and follow your next steps.</p>
+      </div>
+      <a class="primary link-button" href="jobs.html">Find a job</a>
+    </header>
+
+    <!-- Refresh shows status changes made by a recruiter. -->
+    <div class="toolbar">
+      <p id="applicationMessage" role="status">Loading applications...</p>
+      <button id="refreshApplications" type="button">Refresh status</button>
+    </div>
+    <!-- JavaScript inserts the user's application cards here. -->
+    <div id="applicationList" class="card-list"></div>
+  </main>
+</body>
+</html>

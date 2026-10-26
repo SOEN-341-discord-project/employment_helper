@@ -16,6 +16,8 @@ router.get("/", async (req, res) => {
     let query = supabase
         .from("jobs")
         .select("*")
+        // Closed postings stay in application history but leave the search results.
+        .eq("is_active", true)
         .order("posted_at", { ascending: false });
 
     // only add a filter if the user actually typed something for it

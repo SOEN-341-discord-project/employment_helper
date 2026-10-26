@@ -24,6 +24,8 @@ As a job seeker, I want to search for jobs by keyword and filter results by loca
 
 US-07 — Job Application Submission
 As a job seeker, I want to apply for a posted job using my uploaded resume so that the recruiter can consider me for the position.
+    Task 7.01: Submit an application
+    Task 7.02: 7.02 avoid duplicate applications
 
 US-08 — Application Status Tracking
 As a job seeker, I want to view whether each application is Applied, Interview, Offered, or Rejected so that I can track my progress.
@@ -55,3 +57,63 @@ As a job seeker, I want the UI to be very easy to understand and to navigate thr
 
 US-15
 As a job seeker, I want to have control on what type of emails and notifications I recieve. I want to choose if I only want to get notified when I get an interview or also when a new position is out.
+
+
+
+US-16 — Manage Job Postings
+
+As a recruiter, I want to view, edit, close, and reopen my own job postings so that I can keep available opportunities up to date.
+
+    Tasks:
+
+    Task 16.01: Display the logged-in recruiter’s postings.
+
+    Task 16.02: Allow the recruiter to edit their postings.
+
+    Task 16.03: Allow the recruiter to close and reopen postings.
+
+    Task 16.04: Prevent recruiters from managing another recruiter’s postings.
+
+        Acceptance tests:
+
+        Editing a posting updates its information in job search.
+
+        Closing a posting removes it from search; reopening makes it available again.
+
+US-17 — Review Received Applications
+
+    As a recruiter, I want to view applications received for my postings and open submitted résumés so that I can review candidates.
+
+    Tasks:
+
+    Task 17.01: Display applications for a selected posting.
+
+    Task 17.02: Display applicant names, emails, and application dates.
+
+    Task 17.03: Allow viewing the résumé submitted with each application.
+
+    Task 17.04: Restrict access to the recruiter who owns the posting.
+
+        Acceptance tests:
+
+        An application appears under the correct recruiter’s posting.
+
+        The recruiter can open the résumé submitted with that application.
+
+US-18 — Update Application Status
+
+    As a recruiter, I want to update an application’s status so that applicants can follow their progress.
+
+    Tasks:
+
+    Task 18.01: Provide Applied, Under Review, Interview, Offered, and Rejected status choices.
+
+    Task 18.02: Save status changes for applications to the recruiter’s own postings.
+
+    Task 18.03: Display saved status changes on the applicant’s tracking page.
+
+        Acceptance tests:
+
+        A saved status change appears when the applicant refreshes their applications.
+
+        An unauthorized user cannot change an application’s status.

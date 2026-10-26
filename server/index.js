@@ -11,6 +11,9 @@ const supabase = require("./supabaseClient");
 const app = express();
 const profileRoutes = require("./routes/profile");
 const jobRoutes = require("./routes/jobs");
+// Features 3 and 4: applications and recruiter posting management.
+const applicationRoutes = require("./routes/applications");
+const recruiterRoutes = require("./routes/recruiter");
 
 
 app.get("/", (req, res) => {
@@ -29,6 +32,8 @@ app.use(
 
 app.use("/api/profile", profileRoutes);
 app.use("/api/jobs", jobRoutes);
+app.use("/api/applications", applicationRoutes);
+app.use("/api/recruiter", recruiterRoutes);
 
 const diskstorage = multer.diskStorage({
 
@@ -54,6 +59,12 @@ app.get("/api", (req, res) => {
 
 app.post("/api/register", async (req, res) => {
   const { fullName, email, password } = req.body ?? {};
+  // Older sign-up forms default to a job seeker account.
+  const accountType = req.body?.accountType ?? "job_seeker";
+
+  if (!["job_seeker", "recruiter"].includes(accountType)) {
+    return res.status(400).json({ error: "Choose Job seeker or Recruiter." });
+  }
 
   if (!fullName || !email || !password) {
     return res.status(400).json({ error: "Name, Email and Password are required." });
@@ -71,7 +82,8 @@ app.post("/api/register", async (req, res) => {
     const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: fullName } },
+    // The database uses this initial choice when a NEW account is created.
+    options: { data: { full_name: fullName, account_type: accountType } },
   });
 
   if (error) {
@@ -83,7 +95,7 @@ app.post("/api/register", async (req, res) => {
   }
 
   res.status(201).json({
-    message: "Account created.",
+    message: "Account created! Confirm your email if required, then log in.",
     user: { id: data.user.id, email: data.user.email },
   });
 });
