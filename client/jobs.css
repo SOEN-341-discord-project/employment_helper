@@ -1,0 +1,112 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding-top: 40px;
+  background: white;
+  color: #222;
+  font-family: "Inter", sans-serif;
+}
+
+.jobs {
+  width: 90%;
+  max-width: 600px;
+  margin: 100px auto 30px;
+}
+
+.jobs-title { margin: 0 0 12px; font-size: 18px; }
+
+/* SEARCH FORM (same look as the profile page inputs) */
+.field {
+  display: block;
+  margin: 6px 0;
+  font-size: 12px;
+}
+
+.jobs input,
+.jobs select {
+  width: 100%;
+  padding: 6px 0;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;
+  background: transparent;
+  color: #222;
+  font: inherit;
+}
+
+.jobs input:focus,
+.jobs select:focus {
+  outline: none;
+  border-bottom-color: #222;
+}
+
+.jobs input::placeholder { color: #999; }
+
+.action { margin-top: 16px; text-align: right; }
+
+.jobs button {
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: #f1f1f1;
+  color: #222;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.jobs .save { background: #222; color: white; }
+
+#message { margin: 16px 0 4px; font-size: 11px; color: #777; }
+
+/* JOB CARDS */
+.job {
+  border-bottom: 1px solid #ddd;
+}
+
+/* the part you click on */
+.job summary {
+  display: block;
+  padding: 14px 24px 14px 0;
+  position: relative;
+  cursor: pointer;
+  list-style: none;            /* gets rid of the default arrow */
+}
+
+.job summary::-webkit-details-marker { display: none; }   /* same thing for safari */
+
+/* little + that turns into a - when the job is open */
+.job summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 12px;
+  font-size: 18px;
+  color: #777;
+}
+
+.job[open] summary::after { content: "−"; }
+
+.job summary:focus-visible { outline: 1px solid #222; }
+
+.job-title { margin: 0; font-size: 14px; font-weight: 600; }
+.job-company { margin: 2px 0 0; font-size: 12px; color: #777; }
+
+.job-tags { margin-top: 8px; }
+
+.tag {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 2px 8px;
+  border-radius: 5px;
+  background: #f1f1f1;
+  font-size: 11px;
+}
+
+/* what shows up after you click */
+.job-details { padding: 0 0 16px; font-size: 12px; line-height: 1.5; }
+.job-details h3 { margin: 12px 0 4px; font-size: 12px; }
+.job-details p { margin: 0; }
+.job-details ul { margin: 0; padding-left: 18px; }
+.job-posted { margin-top: 12px; font-size: 11px; color: #777; }

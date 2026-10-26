@@ -10,7 +10,7 @@ const crypto = require('crypto');
 const supabase = require("./supabaseClient");
 const app = express();
 const resumeRoutes = require("./routes/resumes");
-
+const jobRoutes = require("./routes/jobs");
 
 
 app.get("/", (req, res) => {
@@ -28,6 +28,7 @@ app.use(
 );
 
 app.use("/api/resumes", resumeRoutes);
+app.use("/api/jobs", jobRoutes);
 
 const diskstorage = multer.diskStorage({
 
