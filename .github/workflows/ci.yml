@@ -1,0 +1,30 @@
+name: Project CI
+
+# Run whenever code is pushed or a pull request is opened/updated.
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Download the repository onto GitHub's temporary computer.
+      - name: Get the code
+        uses: actions/checkout@v6
+
+      # Use Node.js to run the checks.
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      # Install the exact dependencies from package-lock.json.
+      - name: Install dependencies
+        run: npm ci
+
+      # Check each JavaScript file without starting the server.
+      - name: Check JavaScript syntax
+        run: find client server -name "*.js" -print0 | xargs -0 -n 1 node --check
