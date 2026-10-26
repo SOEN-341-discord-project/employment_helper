@@ -18,7 +18,7 @@ Review the Sprint 2 requirements and divide the implementation work.
 - **Jamar:** Feature 2 — Job Search and Job Listing Interface.
 - **Amer:** Feature 3 — Job Application Submission and Tracking and CI integration.
 - **Liam:** Begin Feature 4 — Recruiter Dashboard and Posting Management.
--**George** Agreed to take over the documentation part
+-**George** Feature 2 — Job Bank scraper and job data extraction.
 
 ## Action Items
 - Each member will begin their assigned feature.
