@@ -1,0 +1,32 @@
+.navbar {
+  position: fixed;
+
+  display: flex; align-items: center; justify-content: space-between;
+  width: 400px;padding: 9px; background: #1b1b1f; border-radius: 50px;
+
+  left: 50%;transform: translateX(-50%);top: 21px;
+  z-index: 100;
+}
+
+.navbar a {
+  display: flex;
+  /*align icons center vertically  link and horizontal*/
+  align-items: center; justify-content: center;
+  width: 56px; height: 56px;border-radius: 50%;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  background: #131316;
+}
+
+.navbar img {
+  width: 24px;  height: 24px;
+  object-fit: contain;   /*scale proportions of image to fit container*/
+  opacity: .5;
+}
+
+.navbar a:hover img,
+.navbar a.active img {
+  opacity: 1;
+}
