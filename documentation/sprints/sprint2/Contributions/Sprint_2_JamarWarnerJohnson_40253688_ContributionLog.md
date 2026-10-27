@@ -19,11 +19,8 @@ Style: Styled in black and white to match website theme. Time spent on layout sp
 
 Tested searches individually and combined. Tested empty search and empty result. Tested clear button. Open and close the dropdown. 
 
-I also wrote a python script that connects to canada jobs to scrape the website with a default parameter to simulate and pretend as if it were an actual user to then scrape jobs for a usable output. 
-
 Time spent:
 Style: ~5 hours:
 Search, filter, Backend: [12 hours]
 Testing : 3 hours
-Python script: 2 hours
-Total time: 22 hours
+Total time: 20 hours
