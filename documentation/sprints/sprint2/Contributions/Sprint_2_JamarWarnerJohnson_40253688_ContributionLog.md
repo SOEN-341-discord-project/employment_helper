@@ -1,4 +1,5 @@
 Sprint 2 Contribution Log : Jamar Warner Johnson 40253688
+User story 6
 
 
 
