@@ -1,5 +1,5 @@
 const supabase = require("../config/supabase");
-
+const { isValidId } = require("../utils/validation");
 // Middleware runs before a route. This checks who is logged in.
 async function requireUser(req, res, next) {
   try {
@@ -43,12 +43,6 @@ async function requireRecruiter(req, res, next) {
     console.error("Recruiter check failed:", error);
     res.status(500).json({ error: "Unable to check recruiter access. Check the database setup." });
   }
-}
-
-// Our database uses positive whole numbers for job and application IDs.
-function isValidId(value) {
-  if (typeof value !== "string" && typeof value !== "number") { return false; }
-  return /^[1-9][0-9]*$/.test(String(value));
 }
 
 module.exports = { requireUser, requireRecruiter, isValidId };

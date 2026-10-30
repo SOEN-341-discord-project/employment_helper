@@ -1,6 +1,8 @@
 const express = require("express");
+
 const supabase = require("../config/supabase");
 const { requireUser, requireRecruiter, isValidId } = require("../middleware/account");
+const { readJob } = require("../utils/validation");
 const router = express.Router();
 
 // Both checks run before every route in this file.
@@ -8,22 +10,6 @@ router.use(requireUser, requireRecruiter);
 
 const statuses = ["Applied", "Under Review", "Interview", "Offered", "Rejected"];
 
-// Validate on the server too: browser form checks can be bypassed.
-function readJob(body) {
-  const job = {};
-  const fields = ["title", "company", "location", "category", "job_type", "description", "requirements"];
-  for (const field of fields) {
-    const value = body?.[field];
-    const limit = field === "description" || field === "requirements" ? 10000 : 120;
-    if (typeof value !== "string" || !value.trim() || value.trim().length > limit) {
-      return null;
-    }
-    job[field] = value.trim();
-  }
-  if (!["Software", "Hardware", "Data", "Design"].includes(job.category)) { return null; }
-  if (!["Full-time", "Part-time", "Internship", "Contract", "Temporary"].includes(job.job_type)) { return null; }
-  return job;
-}
 
 // Look up a posting AND its owner together. Knowing a job ID is not permission.
 async function findOwnedJob(jobId, userId) {
