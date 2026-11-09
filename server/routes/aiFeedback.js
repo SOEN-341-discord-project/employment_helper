@@ -70,12 +70,15 @@ router.post("/", async (req, res) => {
 
     // Ask Gemini to give feedback on the resume
     const prompt = `
-    Review this resume and give simple feedback.
+    Give feedback on this resume.
 
-    Give:
+    Tell me:
     1. Three strengths
-    2. Three things that could be improved
-    3. Three specific recommendations
+    2. Three things to improve
+    3. Three recommendations
+
+    Write in plain text. Do not use Markdown, hashtags, or asterisks.
+    Put each point on a separate line.
 
     Resume:
     ${resumeText}
