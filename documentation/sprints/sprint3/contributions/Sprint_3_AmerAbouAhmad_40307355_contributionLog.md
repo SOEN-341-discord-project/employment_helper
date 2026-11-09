@@ -21,10 +21,10 @@
 
 ## Time and Supporting Evidence
 
-- Recruiter dashboard and user story updates — 7 hours. [Implementation commit](https://github.com/SOEN-341-discord-project/employment_helper/commit/de265dfabb55395b4ba20d1d68612b9b6d08b93b)
-- Acceptance test preparation — 2 hours.
-- Automated tests and CI — 2 hours. 
+- Recruiter dashboard and user story updates — 8 hours. [Implementation commit](https://github.com/SOEN-341-discord-project/employment_helper/commit/de265dfabb55395b4ba20d1d68612b9b6d08b93b)
+- Acceptance test preparation — 2 hours. [US-16 and US-17 acceptance tests in the backlog](https://github.com/SOEN-341-discord-project/employment_helper/blob/de265dfabb55395b4ba20d1d68612b9b6d08b93b/documentation/sprints/sprint3/userStories.md#L63-L116)
+- Automated tests and CI — 2 hours. [Test and workflow commit](https://github.com/SOEN-341-discord-project/employment_helper/commit/f5f6ad402ff233066192e28d391b836aa52aee7b)
 
-**Total time** — [11 hours]
+**Total time** — [12 hours]
 
-**NOTE** I did not add all the commits, I just put the major one.
+**NOTE** I did not add all the commits, I just put the major/final ones.
