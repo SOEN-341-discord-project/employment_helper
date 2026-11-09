@@ -9,10 +9,22 @@ const refreshDashboard = document.getElementById("refreshDashboard");
 const applicantList = document.getElementById("applicantList");
 const applicantMessage = document.getElementById("applicantMessage");
 const applicantsTitle = document.getElementById("applicantsTitle");
+const postingFilter = document.getElementById("postingFilter");
+const applicantFilters = document.getElementById("applicantFilters");
+const applicantStatus = document.getElementById("applicantStatus");
+const applicantDate = document.getElementById("applicantDate");
 
 let editingJobId = null; // null means the form is creating a new posting.
 let selectedJob = null; // The posting whose applicants are currently displayed.
+let applicantRequest = 0;
 const statuses = ["Applied", "Under Review", "Interview", "Offered", "Rejected"];
+
+// Use the same statuses for filtering and for updating an application.
+for (const status of statuses) {
+  const option = makeText("option", status);
+  option.value = status;
+  applicantStatus.appendChild(option);
+}
 
 // Create a normal button and connect its click to a function.
 function makeButton(text, onClick) {
@@ -51,25 +63,24 @@ async function loadDashboard() {
     const jobs = await apiRequest("/api/recruiter/jobs");
     recruiterContent.hidden = false;
     postingList.replaceChildren();
-    dashboardMessage.textContent = jobs.length + " posting(s) in your account.";
-
-    if (jobs.length === 0) {
-      postingList.appendChild(makeText("p", "No postings yet. Create your first one using the form.", "panel muted"));
-    }
-
     for (const job of jobs) {
       const card = makeText("article", "", "panel");
+      card.dataset.postingState = job.is_active ? "open" : "archived";
       card.appendChild(makeText("h2", job.title));
       card.appendChild(makeText("p", job.company + " · " + job.location, "muted small"));
-      card.appendChild(makeText("span", job.is_active ? "Open" : "Closed", "status-badge"));
+      card.appendChild(makeText("span", job.is_active ? "Open" : "Archived", "status-badge"));
       card.appendChild(makeText("p", job.category + " · " + job.job_type, "small"));
 
       const controls = makeText("div", "", "button-row");
       controls.appendChild(makeButton("Edit", function () { editPosting(job); }));
-      controls.appendChild(makeButton("View applicants", function () { loadApplicants(job); }));
-      const availability = makeButton(job.is_active ? "Close posting" : "Reopen posting", async function () {
+      controls.appendChild(makeButton("View applicants", function () {
+        loadApplicants(job);
+        applicantsTitle.focus();
+      }));
+      const availability = makeButton(job.is_active ? "Archive posting" : "Restore posting", async function () {
         availability.disabled = true;
         try {
+          // Reuse the existing active flag so archived postings keep their applications.
           await apiRequest("/api/recruiter/jobs/" + job.id, "PATCH", { is_active: !job.is_active });
           await loadDashboard();
         } catch (error) {
@@ -82,6 +93,7 @@ async function loadDashboard() {
       card.appendChild(controls);
       postingList.appendChild(card);
     }
+    filterPostings();
   } catch (error) {
     // The server denies access if this account is not in the recruiters table.
     recruiterContent.hidden = true;
@@ -90,6 +102,20 @@ async function loadDashboard() {
     refreshDashboard.disabled = false;
   }
 }
+
+function filterPostings() {
+  const filter = postingFilter.value;
+  let visible = 0;
+  for (const card of postingList.children) {
+    card.hidden = filter !== "all" && card.dataset.postingState !== filter;
+    if (!card.hidden) { visible++; }
+  }
+  dashboardMessage.textContent = visible
+    ? "Showing " + visible + " of " + postingList.children.length + " postings."
+    : "No " + (filter === "all" ? "" : filter + " ") + "postings to show.";
+}
+
+postingFilter.addEventListener("change", filterPostings);
 
 postingForm.addEventListener("submit", async function (event) {
   event.preventDefault(); // Save with JavaScript rather than reloading the page.
@@ -124,27 +150,67 @@ cancelEdit.addEventListener("click", function () {
 });
 
 async function loadApplicants(job) {
+  if (selectedJob?.id !== job.id) {
+    applicantStatus.value = "";
+    applicantDate.value = "";
+  }
   selectedJob = job;
+  const request = ++applicantRequest;
   applicantsTitle.textContent = "Applicants · " + job.title;
   applicantMessage.textContent = "Loading applicants...";
+  applicantFilters.hidden = true;
   applicantList.replaceChildren();
 
   try {
     const applications = await apiRequest("/api/recruiter/jobs/" + job.id + "/applications");
-    // Ignore a late response if the recruiter has already selected another job.
-    if (selectedJob.id !== job.id) { return; }
-    applicantList.replaceChildren();
-    applicantMessage.textContent = applications.length ? applications.length + " application(s)." : "No applications for this posting yet.";
+    // An older response must not replace the list from a newer request.
+    if (request !== applicantRequest) { return; }
     for (const application of applications) {
       applicantList.appendChild(makeApplicantCard(application));
     }
+    applicantFilters.hidden = false;
+    filterApplicants();
   } catch (error) {
-    if (selectedJob.id === job.id) { applicantMessage.textContent = error.message; }
+    if (request === applicantRequest) { applicantMessage.textContent = error.message; }
   }
 }
 
+// Compare dates in the recruiter's local time, just like the date on each card.
+function filterApplicants() {
+  const status = applicantStatus.value;
+  const date = applicantDate.value;
+  const selectedDate = date ? new Date(date + "T00:00:00").toDateString() : "";
+  let visible = 0;
+
+  for (const card of applicantList.children) {
+    const matchesStatus = !status || card.dataset.status === status;
+    const matchesDate = !date || card.dataset.appliedDate === selectedDate;
+    card.hidden = !matchesStatus || !matchesDate;
+    if (!card.hidden) { visible++; }
+  }
+
+  const total = applicantList.children.length;
+  if (total === 0) {
+    applicantMessage.textContent = "No applications for this posting yet.";
+  } else if (visible === 0) {
+    applicantMessage.textContent = "No applications match these filters.";
+  } else {
+    applicantMessage.textContent = "Showing " + visible + " of " + total + " applications.";
+  }
+}
+
+applicantStatus.addEventListener("change", filterApplicants);
+applicantDate.addEventListener("change", filterApplicants);
+document.getElementById("clearApplicantFilters").addEventListener("click", function () {
+  applicantStatus.value = "";
+  applicantDate.value = "";
+  filterApplicants();
+});
+
 function makeApplicantCard(application) {
   const card = makeText("article", "", "panel applicant-card");
+  card.dataset.status = application.status;
+  card.dataset.appliedDate = new Date(application.created_at).toDateString();
   card.appendChild(makeText("h2", application.applicant_name));
   card.appendChild(makeText("p", application.applicant_email, "muted small"));
   card.appendChild(makeText("p", "Applied on " + showDate(application.created_at), "muted small"));
@@ -189,6 +255,11 @@ function makeApplicantCard(application) {
     try {
       const data = await apiRequest("/api/recruiter/applications/" + application.id, "PATCH", { status: select.value });
       notice.textContent = data.message;
+      card.dataset.status = select.value;
+      if (card.parentElement === applicantList) {
+        filterApplicants();
+        if (card.hidden) { applicantMessage.textContent += " " + data.message; }
+      }
     } catch (error) {
       notice.textContent = error.message;
     } finally {

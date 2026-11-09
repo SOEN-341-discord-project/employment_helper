@@ -74,13 +74,31 @@
 
         <section aria-labelledby="postingsTitle">
           <h2 id="postingsTitle">Your postings</h2>
-          <p class="muted small">Closed postings leave job search. Existing applications stay saved.</p>
+          <p class="muted small">Archived postings are hidden from job search. You can still review their applications.</p>
+          <label>Show postings
+            <select id="postingFilter">
+              <option value="all">All postings</option>
+              <option value="open">Open postings</option>
+              <option value="archived">Archived postings</option>
+            </select>
+          </label>
           <div id="postingList" class="card-list"></div>
         </section>
       </div>
 
       <section class="applicant-section" aria-labelledby="applicantsTitle">
-        <h2 id="applicantsTitle">Applicants</h2>
+        <h2 id="applicantsTitle" tabindex="-1">Applicants</h2>
+        <div id="applicantFilters" class="form-row" hidden>
+          <label>Filter by status
+            <select id="applicantStatus">
+              <option value="">All statuses</option>
+            </select>
+          </label>
+          <label>Applied on
+            <input type="date" id="applicantDate">
+          </label>
+          <button type="button" id="clearApplicantFilters">Clear filters</button>
+        </div>
         <p id="applicantMessage" role="status" class="muted">Choose “View applicants” on a posting above.</p>
         <div id="applicantList" class="card-list"></div>
       </section>
