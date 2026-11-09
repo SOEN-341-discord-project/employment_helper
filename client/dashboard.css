@@ -1,0 +1,32 @@
+.visually-hidden{
+    position: absolute;
+    width: 1px; height:1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom:28px;
+}
+
+.stat-card {}
+
+.dashboard-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 28px;
+    align-items: start;
+}
+
+.bar-track {}
+
+.bar-fill {}
+
+@media (max-width:720px) {
+    .dashboard-two-col { grid-template-columns: 1fr;}
+}
