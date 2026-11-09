@@ -11,6 +11,7 @@ const supabase = require("./supabaseClient");
 const app = express();
 const profileRoutes = require("./routes/profile");
 const jobRoutes = require("./routes/jobs");
+const aiFeedbackRoutes = require("./routes/aiFeedback");
 // Features 3 and 4: applications and recruiter posting management.
 const applicationRoutes = require("./routes/applications");
 const recruiterRoutes = require("./routes/recruiter");
@@ -34,6 +35,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/recruiter", recruiterRoutes);
+app.use("/api/ai-feedback", aiFeedbackRoutes);
 
 const diskstorage = multer.diskStorage({
 

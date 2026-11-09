@@ -5,6 +5,8 @@ const message = document.querySelector("#message");
 const profileMessage = document.querySelector("#profileMessage");
 const saveButton = document.querySelector("#save");
 const cancelButton = document.querySelector("#cancel");
+const aiFeedbackButton = document.querySelector("#aiFeedbackButton");
+const aiFeedback = document.querySelector("#aiFeedback");
 
 // Find the two links and the container that holds them.
 const resumeLinks = document.getElementById("resumeLinks");
@@ -239,5 +241,30 @@ async function loadProfile() {
     profileMessage.textContent = "Cant load profile.";
   }
 }
+
+aiFeedbackButton.addEventListener("click", async function () {
+  aiFeedback.textContent = "Getting AI feedback...";
+
+  try {
+    const response = await fetch("/api/ai-feedback", {
+      method: "POST",
+      headers: {
+        Authorization: sessionStorage.getItem("accessToken")
+      }
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      aiFeedback.textContent = data.feedback;
+    } else {
+      aiFeedback.textContent = data.error;
+    }
+
+  } catch (error) {
+    aiFeedback.textContent = "Unable to get AI feedback.";
+  }
+});
+
 
 loadProfile();
