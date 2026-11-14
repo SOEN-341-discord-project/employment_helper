@@ -34,7 +34,7 @@ router.post("/", async function (req, res) {
   try {
     // A closed or missing posting cannot receive new applications.
     const job = await supabase.from("jobs")
-      .select("id, recruiter_id, is_active")
+      .select("id, title, recruiter_id, is_active")
       .eq("id", jobId).maybeSingle();
     if (job.error) { throw job.error; }
     if (!job.data || !job.data.is_active) {
@@ -53,7 +53,7 @@ router.post("/", async function (req, res) {
       return res.status(400).json({ error: "Save your profile and upload a résumé before applying." });
     }
 
-    const { error } = await supabase.from("applications").insert({
+    const { data: application, error } = await supabase.from("applications").insert({
       job_id: job.data.id,
       applicant_id: req.user.id,
       // Keep the details submitted today, even if the profile changes later.
@@ -62,13 +62,32 @@ router.post("/", async function (req, res) {
       resume_name: profile.data.resume_name,
       resume_path: profile.data.resume_path,
       status: "Applied"
-    });
+    })
+    .select("id")
+    .single();
 
     // A database uniqueness rule also prevents two rapid clicks creating duplicates.
     if (error?.code === "23505") {
       return res.status(409).json({ error: "You have already applied to this job." });
     }
     if (error) { throw error; }
+
+    if (job.data.recruiter_id) {
+  const { error: notificationError } = await supabase
+    .from("notifications")
+    .insert({
+      recipient_id: job.data.recruiter_id,
+      type: "new_application",
+      message: `${profile.data.name} applied for ${job.data.title}.`,
+      job_id: job.data.id,
+      application_id: application.id
+    });
+
+  if (notificationError) {
+    console.error("Recruiter notification creation failed:", notificationError);
+  }
+}
+
     res.status(201).json({ message: "Application submitted successfully! Track it in My applications." });
   } catch (error) {
     console.error("Application submission failed:", error);
