@@ -9,6 +9,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
+const { countByStatus, countByWeek, summarize } = require("../server/Dashboardstats");
 
 // Read the real dashboard code from the client folder. __dirname is this test file's folder.
 const dashboardCode = fs.readFileSync(
@@ -166,4 +167,36 @@ test("US-17 clears both filters and shows all applications", async () => {
   assert.equal(elements.applicantStatus.value, "");
   assert.equal(elements.applicantDate.value, "");
   assert.deepEqual(visibleApplicants(elements), ["Avery", "Blake", "Casey"]);
+});
+
+const seekerApplications = [
+    { id: 1, status: "Applied", created_at: "2026-11-09T09:00:00Z" },   
+    { id: 2, status: "Interview", created_at: "2026-11-03T15:30:00Z" }, 
+    { id: 3, status: "Rejected", created_at: "2026-11-14T20:00:00Z" },  
+    { id: 4, status: "Applied", created_at: "2026-11-08T08:00:00Z" }    
+];
+
+test("Job seeker dashboard counts each status and builds the summary", () => {
+    assert.deepEqual(countByStatus(seekerApplications), {
+        Applied: 2,
+        "Under Review": 0,
+        Interview: 1,
+        Offered: 0,
+        Rejected: 1
+    });
+
+    assert.deepEqual(summarize(seekerApplications), {
+        total: 4,
+        pending: 2,
+        interviews: 1,
+        offers: 0,
+        rejected: 1
+    });
+});
+
+test("Job seeker dashboard counts applications per week, oldest week first", () => {
+    assert.deepEqual(countByWeek(seekerApplications), [
+        { week: "2026-11-01", count: 1 },
+        { week: "2026-11-08", count: 3 }
+    ]);
 });

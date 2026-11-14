@@ -14,7 +14,7 @@ const jobRoutes = require("./routes/jobs");
 // Features 3 and 4: applications and recruiter posting management.
 const applicationRoutes = require("./routes/applications");
 const recruiterRoutes = require("./routes/recruiter");
-
+const dashboardRoutes = require("./routes/dashboard");
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
@@ -34,6 +34,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/recruiter", recruiterRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 const diskstorage = multer.diskStorage({
 
