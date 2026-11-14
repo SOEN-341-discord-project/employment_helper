@@ -1,0 +1,54 @@
+# Sprint 3 Contribution Log — Giorgio Azzi
+
+## Feature: Notifications and Interview Reminders
+
+### Database Setup
+
+- Added the `interview_at` timestamp column to the `applications` table.
+- Created the `notifications` table in Supabase.
+- Added notification fields for the recipient, type, message, job, application, read status, creation time, and availability time.
+- Added foreign-key relationships with users, jobs, and applications.
+- Added validation for the allowed notification types.
+
+### Backend Implementation
+
+- Created `server/routes/notifications.js`.
+- Added `GET /api/notifications` to retrieve the logged-in user's available notifications.
+- Added `PATCH /api/notifications/:id/read` to mark a notification as read.
+- Protected notification routes using the existing authentication middleware.
+- Registered the notification router in `server/index.js`.
+
+### Application Notifications
+
+- Updated the application submission route.
+- Added a notification for the recruiter when a seeker submits an application.
+- Included the applicant's name and job title in the notification.
+- Connected the notification to the related job and application.
+
+### Status and Interview Notifications
+
+- Updated the recruiter application-status route.
+- Added a notification for the seeker when the recruiter changes the application status.
+- Added validation requiring a future interview date when the status is `Interview`.
+- Saved the interview date in `applications.interview_at`.
+- Added an immediate interview invitation notification.
+- Added an interview reminder with an availability time 24 hours before the interview.
+
+### Testing Completed
+
+- Confirmed that the server starts successfully.
+- Confirmed that unauthenticated notification requests are rejected.
+- Confirmed that a recruiter notification is created when a seeker applies.
+- Confirmed that a seeker notification is created when an application status changes.
+- Confirmed that notification records contain the correct recipient, job, application, type, and message.
+
+### Remaining Integration Testing
+
+- The interview invitation and reminder will be tested end-to-end after the frontend sends both `status` and `interview_at` to the backend.
+
+### Main Files Modified
+
+- `server/index.js`
+- `server/routes/applications.js`
+- `server/routes/notifications.js`
+- `server/routes/recruiter.js`
