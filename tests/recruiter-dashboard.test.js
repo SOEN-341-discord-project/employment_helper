@@ -200,3 +200,33 @@ test("Job seeker dashboard counts applications per week, oldest week first", () 
         { week: "2026-11-08", count: 3 }
     ]);
 });
+
+test("US-16: archiving a posting keeps its applications available and restoring it reopens it", async () => {
+  const elements = await startDashboard();
+  const posting = () => elements.postingList.children[0];
+  const action = text =>
+    posting().children.at(-1).children.find(button => button.textContent === text);
+
+  await action("Archive posting").handlers.click();
+  elements.postingFilter.value = "open"; //behaviour for when open
+  elements.postingFilter.handlers.change();
+  assert.equal(posting().hidden, true);
+
+  elements.postingFilter.value = "archived"; //behaviour for when closed
+  elements.postingFilter.handlers.change();
+  assert.equal(posting().hidden, false);
+
+  await action("View applicants").handlers.click();
+  await new Promise(resolve => setImmediate(resolve)); //added wait to remedy immediate fail from test
+  assert.deepEqual(visibleApplicants(elements), ["Avery", "Blake", "Casey"]); //why not use our team names for the template?
+
+  await action("Restore posting").handlers.click();
+
+  elements.postingFilter.value = "archived";
+  elements.postingFilter.handlers.change();
+  assert.equal(posting().hidden, true);
+
+  elements.postingFilter.value = "open";
+  elements.postingFilter.handlers.change();
+  assert.equal(posting().hidden, false);
+})
