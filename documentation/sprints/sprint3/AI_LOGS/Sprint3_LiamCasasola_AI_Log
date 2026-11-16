@@ -1,0 +1,12 @@
+Liam Casasola - Sprint 3 - AI Log
+
+    I used AI (Chat GPT) to learn js syntax, for testing and error decoding, and learn the concepts necessary to contribute to feature 2.
+    When I would get syntax error, I would explain to the AI what I was trying to accomplish with my code and it would explain 
+    how it should be done in js. Often my code resembled c++ and it would explain the differences between c++ and js. It would 
+    provide the guidelines on what I have to follow in order to correct my syntax. The other use case I had for AI revolved around 
+    concept clarification. I would often ask for some example of how some function would look like in application. The last way I 
+    used AI was when I did error decoding when I would get errors during testing. Whenever AI would explain a concept, I would 
+    implement it in a way that suited my needs. When I had syntax correction, I would receive the guidelines to follow and I would 
+    implement the code using my variables, arguments, functions and so on. With regard to error decoding, when asking for 
+    clarification on what an error meant, I would change my code to resolve the kinds of issues it would mention, often multiple, 
+    until the error was no longer there.

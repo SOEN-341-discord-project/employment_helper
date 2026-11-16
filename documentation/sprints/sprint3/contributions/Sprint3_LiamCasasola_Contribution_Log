@@ -1,0 +1,12 @@
+Liam Casasola - Sprint 3 - Contribution Log
+
+ - Implemented the function that calculated how many applications there are at each stage.
+ - Implemented the function that calculates how many applications were sent each week.
+ - Implemented the function that calculates how many jobs the person has applied to, applications the employer 
+   hasn’t decided on yet, applications the recruiter has moved to interview, applications that ended in a job 
+   offer, and applications the recruiter rejected. 
+ - Fixed some of the naming so the counts are correct.
+ - Connected the dashboard to the server, so the website can ask for the numbers.
+ - Expanded the application history and ordered the history to be descending.
+ - Making sure the login check works.
+ - Wrote two unit tests for feature 2.

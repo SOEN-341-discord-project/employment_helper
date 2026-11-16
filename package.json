@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "test": "node --test",
-  "start": "node --env-file-if-exists=.env server/index.js"
-},
+  "scripts": {
+    "test": "node --test",
+    "start": "node --env-file-if-exists=.env server/index.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "formidable": "^3.5.4",
     "http": "^0.0.1-security",
     "multer": "^2.4.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "pdf-parse": "^2.4.5"
   }
 }
