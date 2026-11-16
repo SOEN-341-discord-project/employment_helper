@@ -249,13 +249,51 @@ function makeApplicantCard(application) {
   label.appendChild(select);
   controls.appendChild(label);
 
+    const interviewLabel = makeText("label", "Interview date and time");
+  const interviewInput = document.createElement("input");
+  interviewInput.type = "datetime-local";
+
+  if (application.interview_at) {
+    const savedDate = new Date(application.interview_at);
+    // The picker expects local time.
+    const localTime = savedDate.getTime() - savedDate.getTimezoneOffset() * 60000;
+    interviewInput.value = new Date(localTime).toISOString().slice(0, 16);
+  }
+
+  interviewLabel.appendChild(interviewInput);
+  controls.appendChild(interviewLabel);
+
+  interviewLabel.hidden = select.value !== "Interview";
+
+  select.addEventListener("change", function () {
+    interviewLabel.hidden = select.value !== "Interview";
+  });
+
   const saveStatus = makeButton("Save status", async function () {
-    saveStatus.disabled = true;
+
+
+    // arman addition
+        const changes = { status: select.value };
+
+    if (select.value === "Interview") {
+      const interviewDate = new Date(interviewInput.value);
+
+      if (!interviewInput.value || interviewDate <= new Date()) {
+        notice.textContent = "Choose a future interview date and time.";
+        return;
+      }
+
+      changes.interview_at = interviewDate.toISOString();
+    } //arman addition 
+        saveStatus.disabled = true;
     select.disabled = true;
+    interviewInput.disabled = true;
+
     try {
-      const data = await apiRequest("/api/recruiter/applications/" + application.id, "PATCH", { status: select.value });
+      const data = await apiRequest("/api/recruiter/applications/" + application.id, "PATCH", changes);
       notice.textContent = data.message;
       card.dataset.status = select.value;
+
       if (card.parentElement === applicantList) {
         filterApplicants();
         if (card.hidden) { applicantMessage.textContent += " " + data.message; }
@@ -265,6 +303,7 @@ function makeApplicantCard(application) {
     } finally {
       saveStatus.disabled = false;
       select.disabled = false;
+      interviewInput.disabled = false;
     }
   });
   controls.appendChild(saveStatus);
