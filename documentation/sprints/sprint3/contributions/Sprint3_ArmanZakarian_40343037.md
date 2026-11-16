@@ -5,7 +5,7 @@ Feature 3 — Notifications and Reminders
 - In recruiter. js I added the date and time field that shows up when the recruiter selects Interview. If there was already an interview time saved, that time is put back in the field in local time.
 - I changed the Save function so it checks that the recruiter picked a future time before sending the request. I added the time to the same object as the status so both are sent to the server. While it is saving, the button and fields are disabled and then enabled again when the request finishes.
 User Stories and Acceptance Tests
-- For US-14.2, I added the notification bell so users can open the notifications page from the navbar.
+ For US-14.2, I added the notification bell so users can open the notifications page from the navbar.
 - For Task 18.02, I added the interview date and time to the save function that was already there.
 - I tested the applicant side after changing the status to Interview. I opened the bell and saw the status update, the alert date and the Mark as read button. The date I saw there was when the notification was posted. The scheduled interview time was a separate thing to check.
 Automated Tests and CI
