@@ -96,7 +96,7 @@ router.get("/jobs/:id/applications", async function (req, res) {
       return res.status(404).json({ error: "Posting not found in your account." });
     }
     const { data, error } = await supabase.from("applications")
-      .select("id, applicant_name, applicant_email, resume_name, status, created_at")
+      .select("id, applicant_name, applicant_email, resume_name, status, interview_at, created_at")
       .eq("job_id", req.params.id).order("created_at", { ascending: false });
     if (error) { throw error; }
     res.json(data);
@@ -109,7 +109,7 @@ router.get("/jobs/:id/applications", async function (req, res) {
 // Find an application only when its job belongs to this recruiter.
 async function findOwnedApplication(id, userId) {
   const { data, error } = await supabase.from("applications")
-    .select("id, job_id, resume_path, resume_name").eq("id", id).maybeSingle();
+    .select("id, job_id, applicant_id, status, interview_at, resume_path, resume_name").eq("id", id).maybeSingle();
   if (error) { throw error; }
   if (!data || !await findOwnedJob(data.job_id, userId)) { return null; }
   return data;
@@ -117,16 +117,129 @@ async function findOwnedApplication(id, userId) {
 
 // PATCH /api/recruiter/applications/:id: change an applicant's status.
 router.patch("/applications/:id", async function (req, res) {
-  if (!isValidId(req.params.id) || !statuses.includes(req.body?.status)) {
-    return res.status(400).json({ error: "Choose a valid application status." });
+  if (!isValidId(req.params.id)) {
+  return res.status(400).json({ error: "Invalid application." });
+}
+
+const newStatus = req.body?.status;
+
+if (!statuses.includes(newStatus)) {
+  return res.status(400).json({
+    error: "Choose a valid application status."
+  });
+}
+
+let interviewAt = null;
+
+if (newStatus === "Interview") {
+  const interviewDate = new Date(req.body?.interview_at);
+
+  if (
+    !req.body?.interview_at ||
+    Number.isNaN(interviewDate.getTime()) ||
+    interviewDate <= new Date()
+  ) {
+    return res.status(400).json({
+      error: "Choose a valid future interview date and time."
+    });
   }
+
+  interviewAt = interviewDate.toISOString();
+}
   try {
-    if (!await findOwnedApplication(req.params.id, req.user.id)) {
-      return res.status(404).json({ error: "Application not found in your postings." });
+    const application = await findOwnedApplication(
+  req.params.id,
+  req.user.id
+);
+
+if (!application) {
+  return res.status(404).json({
+    error: "Application not found in your postings."
+  });
+}
+
+const job = await findOwnedJob(
+  application.job_id,
+  req.user.id
+);
+
+const changes = {
+  status: newStatus,
+  interview_at: newStatus === "Interview" ? interviewAt : null
+};
+
+const { error } = await supabase
+  .from("applications")
+  .update(changes)
+  .eq("id", application.id);
+    if (error) { throw error; 
+
     }
-    const { error } = await supabase.from("applications")
-      .update({ status: req.body.status }).eq("id", req.params.id);
-    if (error) { throw error; }
+
+    const { error: notificationError } = await supabase
+  .from("notifications")
+  .insert({
+    recipient_id: application.applicant_id,
+    type: "application_status",
+    message: `Your application for ${job.title} is now ${newStatus}.`,
+    job_id: application.job_id,
+    application_id: application.id
+  });
+
+if (notificationError) {
+  console.error(
+    "Applicant notification creation failed:",
+    notificationError
+  );
+}
+
+if (newStatus === "Interview") {
+  const readableInterviewTime = new Date(interviewAt).toLocaleString(
+    "en-CA",
+    {
+      dateStyle: "medium",
+      timeStyle: "short",
+      timeZone: "America/Toronto"
+    }
+  );
+
+  const reminderTime = new Date(
+    new Date(interviewAt).getTime() - 24 * 60 * 60 * 1000
+  );
+
+  const availableReminderTime =
+    reminderTime > new Date()
+      ? reminderTime.toISOString()
+      : new Date().toISOString();
+
+  const { error: interviewNotificationError } = await supabase
+    .from("notifications")
+    .insert([
+      {
+        recipient_id: application.applicant_id,
+        type: "interview_invitation",
+        message: `Your interview for ${job.title} is scheduled for ${readableInterviewTime}.`,
+        job_id: application.job_id,
+        application_id: application.id
+      },
+      {
+        recipient_id: application.applicant_id,
+        type: "interview_reminder",
+        message: `Reminder: your interview for ${job.title} is scheduled for ${readableInterviewTime}.`,
+        job_id: application.job_id,
+        application_id: application.id,
+        available_at: availableReminderTime
+      }
+    ]);
+
+  if (interviewNotificationError) {
+    console.error(
+      "Interview notification creation failed:",
+      interviewNotificationError
+    );
+  }
+}
+
     res.json({ message: "Application status updated." });
   } catch (error) {
     console.error("Status update failed:", error);
