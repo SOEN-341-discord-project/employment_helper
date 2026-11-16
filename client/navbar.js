@@ -11,6 +11,10 @@ document.getElementById("navbar").innerHTML = `
     <a href="applications.html" class="nav-label">My apps</a>
     <a href="recruiter.html" class="nav-label">Recruiter</a>
 
+    <a href="notifications.html" title="Notifications">
+      <img src="notifications.png" >
+    </a>
+
     <a href="login.html" id="logout" title="Log out">
       <img src="logout.png" >
     </a>
