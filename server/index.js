@@ -15,6 +15,8 @@ const aiFeedbackRoutes = require("./routes/aiFeedback");
 // Features 3 and 4: applications and recruiter posting management.
 const applicationRoutes = require("./routes/applications");
 const recruiterRoutes = require("./routes/recruiter");
+
+const dashboardRoutes = require("./routes/dashboard");
 const notificationRouter = require("./routes/notifications");
 
 
@@ -36,6 +38,8 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/recruiter", recruiterRoutes);
+sprint-3-feature-2
+app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/ai-feedback", aiFeedbackRoutes);
 app.use("/api/notifications", notificationRouter);
 

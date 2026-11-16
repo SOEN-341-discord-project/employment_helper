@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dashboard | CareerConnect</title>
+	
+	
+	<!-- Style sheet imports -->
+	<link rel="stylesheet" href="navbar.css">
+	<link rel="stylesheet" href="feature-pages.css">
+	<link rel="stylesheet" href="dashboard.css">
+	
+	<!-- Script imports --> 
+	<script src="navbar.js" defer></script>
+	<script src="feature-api.js" defer></script>
+	<script src="dashboard.js" defer></script>
+</head>
+
+<body>
+	<div id="navbar"></div>
+	<main class="workspace">
+	
+		<header class="page-heading">
+			<div>
+				<p class="eyebrow">JOB SEARCH</p>
+				<h1>Dashboard</h1>
+				<p class="muted">Your applications</p>
+			</div>
+			<button id="refreshDashboard" type="button">Refresh</button>
+		</header>
+		
+		<p id="dashboardMessage" role="status">Loading...</p>
+		
+		<section aria-labelledby="summaryTitle">
+			<h2 id="summaryTitle" class="visually-hidden">Summary</h2>
+			<div id="summaryCards" class="stat-grid"></div>
+		</section>
+		
+		<div class="dashboard-two-col">
+		
+			<section class="panel" aria-labelledby="statusTitle">
+				<h2 id="statusTitle">Status breakdown</h2>
+				
+				<div id="statusBreakdown"></div>
+			</section>
+			
+			<section class="panel" aria-labelledby="activityTitle">
+				<h2 id="activityTitle">Applications/week</h2>
+				
+				<div id="activityChart"></div>
+			</section>
+		</div>
+		
+		<!-- Application history -->
+		
+		<section class="panel history" aria-labelledby="historyTitle">
+			<div class="toolbar">
+				<h2 id="historyTitle">Application history</h2>
+				<label for="historyFilter" class="visually-hidden">Filter by status</label>
+				<select id="historyFilter">
+					<option value="">All statuses</option>
+				</select>
+			</div>
+			<p id="historyMessage" role="status"></p>
+			
+			<div id="historyList"></div>
+		</section>
+		
+	</main>
+</body>
+</html>
