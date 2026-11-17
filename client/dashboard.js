@@ -40,7 +40,7 @@ async function loadDashboard() {
 
 }
 
-function renderSumarry(summary){
+function renderSummary(summary){
     const cards = [
         ["Total applications", summary.total],
         ["In progress", summary.pending],
@@ -79,7 +79,7 @@ function renderStatusBreakdown(byStatus){
     }
 
     for (const status of statuses) {
-        const count = bySTtaus[status] || 0;
+        const count = byStatus[status] || 0;
         const row = document.createElement("div");
         row.className = "status-row";
 
