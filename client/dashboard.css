@@ -13,8 +13,6 @@
     margin-bottom:28px;
 }
 
-.stat-card {}
-
 .dashboard-two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -22,10 +20,6 @@
     margin-bottom: 28px;
     align-items: start;
 }
-
-.bar-track {}
-
-.bar-fill {}
 
 @media (max-width:720px) {
     .dashboard-two-col { grid-template-columns: 1fr;}
