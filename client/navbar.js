@@ -7,8 +7,9 @@ document.getElementById("navbar").innerHTML = `
       <img src="profile.png" >
     </a>
 
-    <!-- Features 3 and 4: links to the two new pages. -->
+    <!-- Link application tracking and the job seeker's analytics dashboard from the shared menu. -->
     <a href="applications.html" class="nav-label">My apps</a>
+    <a href="dashboard.html" class="nav-label">Dashboard</a>
     <a href="recruiter.html" class="nav-label">Recruiter</a>
 
     <a href="notifications.html" title="Notifications">

@@ -30,3 +30,7 @@
 @media (max-width:720px) {
     .dashboard-two-col { grid-template-columns: 1fr;}
 }
+/* Add space between the application status and its count. */
+.status-row-labels > span + span {
+    margin-left: 0.5rem;
+}

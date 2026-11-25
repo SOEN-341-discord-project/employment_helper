@@ -29,6 +29,11 @@ function element(text = "") {
     textContent: text,
     value: "",
     hidden: false,
+    // The seeker dashboard styles its bars and appends several elements to each history card.
+    style: {},
+    append(...children) {
+      for (const child of children) { this.appendChild(child); }
+    },
     appendChild(child) {
       // Record both directions so the child knows which element contains it.
       child.parentElement = this;
@@ -175,6 +180,53 @@ const seekerApplications = [
     { id: 3, status: "Rejected", created_at: "2026-11-14T20:00:00Z" },  
     { id: 4, status: "Applied", created_at: "2026-11-08T08:00:00Z" }    
 ];
+
+// Exercise the seeker's real filter and refresh handlers using the same application fixtures as the totals.
+test("job seeker filters application history without changing the totals", async () => {
+  const applications = [...seekerApplications];
+  const elements = {};
+  const document = {
+    getElementById(id) { return elements[id] ??= element(); },
+    createElement() { return element(); }
+  };
+  const filter = document.getElementById("historyFilter");
+  filter.appendChild(element("All statuses"));
+  const context = vm.createContext({
+    document,
+    makeText: (_tag, text) => element(text),
+    showDate: date => date,
+    async apiRequest(url) {
+      if (url === "/api/applications") { return applications.slice(); }
+      assert.equal(url, "/api/dashboard");
+      return { summary: summarize(applications), byStatus: countByStatus(applications), byWeek: countByWeek(applications) };
+    }
+  });
+  const source = fs.readFileSync(path.join(__dirname, "../client/dashboard.js"), "utf8");
+  await vm.runInContext(source, context);
+
+  assert.deepEqual(filter.children.map(option => option.value),
+    ["", "Applied", "Under Review", "Interview", "Offered", "Rejected"]);
+  const visibleStatuses = () => elements.historyList.children.map(card => card.children[1].textContent);
+  assert.deepEqual(visibleStatuses(), applications.map(application => application.status));
+
+  filter.value = "Interview";
+  filter.handlers.change();
+  assert.deepEqual(visibleStatuses(), ["Interview"]);
+  assert.equal(elements.summaryCards.children[0].children[1].textContent, "4");
+
+  filter.value = "Offered";
+  filter.handlers.change();
+  assert.deepEqual(visibleStatuses(), []);
+  assert.equal(elements.historyMessage.textContent, "No applications match this status.");
+
+  applications[0] = { ...applications[0], status: "Offered" };
+  await elements.refreshDashboard.handlers.click();
+  assert.deepEqual(visibleStatuses(), ["Offered"]);
+  assert.equal(filter.children.length, 6);
+  filter.value = "";
+  filter.handlers.change();
+  assert.deepEqual(visibleStatuses(), applications.map(application => application.status));
+});
 
 test("Job seeker dashboard counts each status and builds the summary", () => {
     assert.deepEqual(countByStatus(seekerApplications), {

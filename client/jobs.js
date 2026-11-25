@@ -125,6 +125,12 @@ function makeJobCard(job) {
   details.appendChild(reqList);
   details.appendChild(posted);
 
+  // Show the calendar date as stored so time zone conversion cannot shift the deadline.
+  const deadline = document.createElement("p");
+  deadline.className = "job-posted";
+  deadline.textContent = job.closing_date ? "Apply by " + job.closing_date : "No deadline listed";
+  details.appendChild(deadline);
+
   // Feature 3: apply to this job using the résumé saved in the profile.
   const applyNote = document.createElement("p");
   applyNote.textContent = "Applying shares your saved name, email, and résumé with this employer.";
