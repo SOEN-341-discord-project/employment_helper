@@ -58,6 +58,10 @@
                 </select>
               </label>
             </div>
+            <!-- Recruiters can leave the deadline empty for postings that stay open. -->
+            <label>Application closing date (optional)
+              <input name="closing_date" type="date" max="9999-12-31">
+            </label>
             <label>Description
               <textarea name="description" rows="4" required maxlength="10000" placeholder="What will the person do?"></textarea>
             </label>

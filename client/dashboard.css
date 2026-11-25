@@ -13,8 +13,6 @@
     margin-bottom:28px;
 }
 
-.stat-card {}
-
 .dashboard-two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -23,10 +21,10 @@
     align-items: start;
 }
 
-.bar-track {}
-
-.bar-fill {}
-
 @media (max-width:720px) {
     .dashboard-two-col { grid-template-columns: 1fr;}
+}
+/* Add space between the application status and its count. */
+.status-row-labels > span + span {
+    margin-left: 0.5rem;
 }

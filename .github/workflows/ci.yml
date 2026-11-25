@@ -7,6 +7,25 @@ permissions:
   contents: read
 
 jobs:
+  # Exercise the Supabase triggers on a disposable PostgreSQL database for each push and PR.
+  deadline-reminders:
+    runs-on: ubuntu-latest
+    container: postgres:17
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: reminder_test
+          POSTGRES_PASSWORD: local_test_only
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v6
+      # Run the interview lifecycle checks against the same disposable notification schema.
+      - name: Test application deadline and interview reminders
+        env:
+          PGPASSWORD: local_test_only
+        run: psql -X -h postgres -U postgres -d reminder_test -v ON_ERROR_STOP=1 -f tests/application-deadline-reminders.sql -f tests/interview-notifications.sql
+
   check:
     runs-on: ubuntu-latest
 

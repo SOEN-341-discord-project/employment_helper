@@ -1,29 +1,15 @@
 const express = require("express");
 const supabase = require("../config/supabase");
 const { requireUser, requireRecruiter, isValidId } = require("../middleware/account");
+// Create and edit requests share the same posting and closing-date validation.
+const { readJob } = require("../jobPosting");
+const invalidJobMessage = "Check the required job details and any application closing date.";
 const router = express.Router();
 
 // Both checks run before every route in this file.
 router.use(requireUser, requireRecruiter);
 
 const statuses = ["Applied", "Under Review", "Interview", "Offered", "Rejected"];
-
-// Validate on the server too: browser form checks can be bypassed.
-function readJob(body) {
-  const job = {};
-  const fields = ["title", "company", "location", "category", "job_type", "description", "requirements"];
-  for (const field of fields) {
-    const value = body?.[field];
-    const limit = field === "description" || field === "requirements" ? 10000 : 120;
-    if (typeof value !== "string" || !value.trim() || value.trim().length > limit) {
-      return null;
-    }
-    job[field] = value.trim();
-  }
-  if (!["Software", "Hardware", "Data", "Design"].includes(job.category)) { return null; }
-  if (!["Full-time", "Part-time", "Internship", "Contract", "Temporary"].includes(job.job_type)) { return null; }
-  return job;
-}
 
 // Look up a posting AND its owner together. Knowing a job ID is not permission.
 async function findOwnedJob(jobId, userId) {
@@ -49,7 +35,8 @@ router.get("/jobs", async function (req, res) {
 // POST /api/recruiter/jobs: create a posting owned by the verified recruiter.
 router.post("/jobs", async function (req, res) {
   const job = readJob(req.body);
-  if (!job) { return res.status(400).json({ error: "Complete every field with valid job details." }); }
+  // Reject invalid dates before inserting the posting.
+  if (!job) { return res.status(400).json({ error: invalidJobMessage }); }
   try {
     const { data, error } = await supabase.from("jobs")
       .insert({ ...job, recruiter_id: req.user.id, is_active: true })
@@ -75,7 +62,8 @@ router.patch("/jobs/:id", async function (req, res) {
       changes = { is_active: req.body.is_active };
     } else {
       changes = readJob(req.body);
-      if (!changes) { return res.status(400).json({ error: "Complete every field with valid job details." }); }
+      // Apply the same date rules when editing an existing posting.
+      if (!changes) { return res.status(400).json({ error: invalidJobMessage }); }
     }
 
     const { data, error } = await supabase.from("jobs").update(changes)
@@ -115,131 +103,38 @@ async function findOwnedApplication(id, userId) {
   return data;
 }
 
-// PATCH /api/recruiter/applications/:id: change an applicant's status.
+// Validate the interview time here, then save the application and its alerts together.
 router.patch("/applications/:id", async function (req, res) {
   if (!isValidId(req.params.id)) {
-  return res.status(400).json({ error: "Invalid application." });
-}
-
-const newStatus = req.body?.status;
-
-if (!statuses.includes(newStatus)) {
-  return res.status(400).json({
-    error: "Choose a valid application status."
-  });
-}
-
-let interviewAt = null;
-
-if (newStatus === "Interview") {
-  const interviewDate = new Date(req.body?.interview_at);
-
-  if (
-    !req.body?.interview_at ||
-    Number.isNaN(interviewDate.getTime()) ||
-    interviewDate <= new Date()
-  ) {
-    return res.status(400).json({
-      error: "Choose a valid future interview date and time."
-    });
+    return res.status(400).json({ error: "Invalid application." });
   }
 
-  interviewAt = interviewDate.toISOString();
-}
+  const status = req.body?.status;
+  if (!statuses.includes(status)) {
+    return res.status(400).json({ error: "Choose a valid application status." });
+  }
+
+  let interviewAt = null;
+  if (status === "Interview") {
+    const date = new Date(req.body.interview_at);
+    if (!req.body.interview_at || Number.isNaN(date.getTime()) || date <= new Date()) {
+      return res.status(400).json({ error: "Choose a valid future interview date and time." });
+    }
+    interviewAt = date.toISOString();
+  }
+
   try {
-    const application = await findOwnedApplication(
-  req.params.id,
-  req.user.id
-);
-
-if (!application) {
-  return res.status(404).json({
-    error: "Application not found in your postings."
-  });
-}
-
-const job = await findOwnedJob(
-  application.job_id,
-  req.user.id
-);
-
-const changes = {
-  status: newStatus,
-  interview_at: newStatus === "Interview" ? interviewAt : null
-};
-
-const { error } = await supabase
-  .from("applications")
-  .update(changes)
-  .eq("id", application.id);
-    if (error) { throw error; 
-
+    // The database checks ownership and locks the application before changing its reminders.
+    const { data: found, error } = await supabase.rpc("set_recruiter_application_status", {
+      p_application_id: req.params.id,
+      p_recruiter_id: req.user.id,
+      p_status: status,
+      p_interview_at: interviewAt
+    });
+    if (error) { throw error; }
+    if (!found) {
+      return res.status(404).json({ error: "Application not found in your postings." });
     }
-
-    const { error: notificationError } = await supabase
-  .from("notifications")
-  .insert({
-    recipient_id: application.applicant_id,
-    type: "application_status",
-    message: `Your application for ${job.title} is now ${newStatus}.`,
-    job_id: application.job_id,
-    application_id: application.id
-  });
-
-if (notificationError) {
-  console.error(
-    "Applicant notification creation failed:",
-    notificationError
-  );
-}
-
-if (newStatus === "Interview") {
-  const readableInterviewTime = new Date(interviewAt).toLocaleString(
-    "en-CA",
-    {
-      dateStyle: "medium",
-      timeStyle: "short",
-      timeZone: "America/Toronto"
-    }
-  );
-
-  const reminderTime = new Date(
-    new Date(interviewAt).getTime() - 24 * 60 * 60 * 1000
-  );
-
-  const availableReminderTime =
-    reminderTime > new Date()
-      ? reminderTime.toISOString()
-      : new Date().toISOString();
-
-  const { error: interviewNotificationError } = await supabase
-    .from("notifications")
-    .insert([
-      {
-        recipient_id: application.applicant_id,
-        type: "interview_invitation",
-        message: `Your interview for ${job.title} is scheduled for ${readableInterviewTime}.`,
-        job_id: application.job_id,
-        application_id: application.id
-      },
-      {
-        recipient_id: application.applicant_id,
-        type: "interview_reminder",
-        message: `Reminder: your interview for ${job.title} is scheduled for ${readableInterviewTime}.`,
-        job_id: application.job_id,
-        application_id: application.id,
-        available_at: availableReminderTime
-      }
-    ]);
-
-  if (interviewNotificationError) {
-    console.error(
-      "Interview notification creation failed:",
-      interviewNotificationError
-    );
-  }
-}
-
     res.json({ message: "Application status updated." });
   } catch (error) {
     console.error("Status update failed:", error);

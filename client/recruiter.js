@@ -49,6 +49,8 @@ function editPosting(job) {
   for (const field of ["title", "company", "location", "category", "job_type", "description", "requirements"]) {
     postingForm.elements[field].value = job[field];
   }
+  // Restore the saved calendar date, or clear the input for an undated posting.
+  postingForm.elements.closing_date.value = job.closing_date ?? "";
   document.getElementById("formTitle").textContent = "Edit posting";
   savePosting.textContent = "Save changes";
   cancelEdit.hidden = false;

@@ -132,11 +132,13 @@ function renderActivity(byWeek){
             { month: "short", day: "numeric" }
         );
 
-        column.append(
-            makeText("span", String(item.count), "activity-count"),
-            bar,
-            makeText("span", date, "activity-date")
-        );
+        const label = item.count === 1 ? "application" : "applications";
+
+    column.append(
+    makeText("span", `${item.count} ${label}`, "activity-count"),
+    bar,
+    makeText("span", ` - week of ${date}`, "activity-date")
+);
 
         chart.appendChild(column);
     }
@@ -152,9 +154,10 @@ function renderHistory(){
     );
 
     if (applications.length === 0 ) {
+        // Distinguish an empty status selection from an empty application history.
         historyMessage.textContent = allApplications.length
-        ? "No applications match"
-        : "No applications yet. Appy first";
+            ? "No applications match this status."
+            : "No applications yet.";
         return;
     }
 
@@ -187,6 +190,15 @@ function renderHistory(){
     }
 }
 
+// Use the same five statuses as the breakdown; the HTML provides the initial "All statuses" option.
+for (const status of statuses) {
+    const option = makeText("option", status);
+    option.value = status;
+    historyFilter.appendChild(option);
+}
+
+// Filter the loaded history in place. The summary and charts still describe all applications.
+historyFilter.addEventListener("change", renderHistory);
 refreshDashboard.addEventListener("click", loadDashboard);
 
 loadDashboard();
